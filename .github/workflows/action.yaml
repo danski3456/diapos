@@ -25,6 +25,6 @@ jobs:
           "pandocfilters==1.4.3" \
           "pandoc-mermaid-filter==0.1.0"
       - name: Converting the slide to html
-        run: find _content -type f -name "*slide.md" -exec pandoc -d utils/params.yaml -i {} -o "{}.html" \; 
+        run: find content -type f -name "*slide.md" -exec pandoc -d utils/params.yaml -i {} -o "{}.html" \; 
       - uses: stefanzweifel/git-auto-commit-action@v4
 
