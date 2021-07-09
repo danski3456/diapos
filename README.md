@@ -6,4 +6,4 @@ This is where the main thing goes
 
 ## Default
 
-[Link](content/default/out.html)
+[Link](content/default/slide.md.html)

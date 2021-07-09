@@ -1,0 +1,30 @@
+name: Compiling Slides
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.8' 
+          architecture: 'x64'
+      - uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.14.0.3' # The pandoc version to download (if necessary) and use.
+      # - name: Install pandoc
+      #   run: sudo apt-get install pandoc
+      - run: echo $(pandoc --version)
+      - name: Pip install
+        run: pip install \
+          pantable \
+          "pandocfilters==1.4.3" \
+          "pandoc-mermaid-filter==0.1.0"
+      - name: Converting the slide to html
+        run: find content -type f -name "slide*.md" -exec pandoc -d utils/params.yaml -i {} -o "{}.html" \; 
+      - uses: stefanzweifel/git-auto-commit-action@v4
+
