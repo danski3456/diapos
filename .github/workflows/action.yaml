@@ -25,7 +25,5 @@ jobs:
           "pandoc-mermaid-filter==0.1.0"
       - name: Converting the slide to html
         run: find content -type f -name "*slide.md" -exec pandoc -d utils/params.yaml -i {} -o "{}.html" \; 
-      # - name: Updating readme
-      #   run: echo "# List of slides" > README.md && find content -type f -name "*slide.md.html" -exec echo "* [{}]({})" \; >> README.md
       - uses: stefanzweifel/git-auto-commit-action@v4
 
