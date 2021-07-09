@@ -1,4 +1,5 @@
-name: Compiling Slides on: [push]
+name: Compiling Slides
+on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
