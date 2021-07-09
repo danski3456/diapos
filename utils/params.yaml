@@ -1,0 +1,25 @@
+to: revealjs
+incremental: true
+
+template: utils/template.revealjs
+slide-level: 3
+
+# variables:
+  # revealjs-url: "https://cdn.jsdelivr.net/reveal.js/3.0.0"
+
+metadata:
+  slideNumber: true
+  controls: true
+  width: "'100%'"
+  height: "'100%'"
+  theme: simple 
+  author:
+    - Diego Kiedanski
+
+filters:
+- pantable
+# - type: json
+#   path: utils/mermaid-filter.py 
+#
+html-math-method:
+  method: mathjax
