@@ -79,6 +79,49 @@ date: Julio - Agosto, 2021
 	* Validar que la métrica del lado del cliente es medible.
 
 
+## Casos famosos en la industria
+
+Es importante mirar casos famosos en la industria y aprender de ellos.
+
+Incluso las empresas más famosas en el rubro (Google, Microsoft, etc) cometen errores.
+
+### Tay, el niño bot de Microsoft
+
+::: columns
+:::: column
+
+* Creado por Microsoft Research en 2016 (@TayandYou)
+* El objectivo era aprender a hablar a partir de tweets.
+* Comenzó muy bien, pero le enseñaron a .
+* Trolls le empezaron a enseñar frases politicamente incorrectas.
+* Fue dado de baja tan solo 16 horas luego de su aparición.
+
+::::
+:::: column
+![Perfil de Twitter de Tay](../img/tay_bot_logo.jpg){ width="75%" }
+::::
+:::
+
+### Tay tweets
+
+![Algunos de los tweets de Tay](../img/tay_tweets.png){ width="75%" }
+
+### Amazon automatiza contrataciones
+
+* Amazon desarrollo una herramienta para calificar nuevos candidatos
+* Con 600.000 empleados, es claramente un cuello de botella.
+* Utilizó aplicaciones pasadas para entrenar un modelo.
+* Como la mayoría eran de hombres, el modelo aprendió a rechazar mujeres.
+* Demoraron casi un año en darse cuenta!
+
+### Github Copilot
+
+* Apendió a programar de una gran base de datos
+* Sugiere a los programadores código de forma automática.
+* Potencial para revolucionar la industria
+* Si llega de `leakear` información confidencial, puede ser una catastrofe.
+* Quién sera responsable del código escrito por ellos?
+
 ## Cronograma: Clase 1 (31 / 07)
 
 ### Sesión 1:

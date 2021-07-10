@@ -135,6 +135,18 @@ When writing code, as with any other collaborative document we would like to:
 * To deploy ML models, we often use an Application Programming Interface (API).
 * An API is a program that exposes a custom URL: it might accept parameters and returns a response.
 
+### API Workflow
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+
+
 ### Example API
 
 * URL: "https://example.com/sum/"
