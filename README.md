@@ -4,3 +4,4 @@
 * [content/eccd_21/out/session_1_intro_slide.html](content/eccd_21/out/session_1_intro_slide.html)
 * [content/eccd_21/out/session_2_review_slide.html](content/eccd_21/out/session_2_review_slide.html)
 * [content/eccd_21/out/session_3_data_cleaning_slide.html](content/eccd_21/out/session_3_data_cleaning_slide.html)
+* [content/eccd_21/out/session_4_price_recommendation_slide.html](content/eccd_21/out/session_4_price_recommendation_slide.html)
