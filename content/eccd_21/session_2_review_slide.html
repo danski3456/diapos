@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Diego Kiedanski">
+  <title>Repaso ML y herramientas</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/simple.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Repaso ML y herramientas</h1>
+  <p class="author">Diego Kiedanski</p>
+  <p class="date">1 Agosto, 2021</p>
+</section>
+
+<section>
+<section id="supervised-learning" class="title-slide slide level2">
+<h2>Supervised Learning</h2>
+<ul>
+<li class="fragment">Let <span class="math inline">\(x^i \in \mathbb{R}^N\)</span> and <span class="math inline">\(y^i \in \mathbb{R}\)</span></li>
+<li class="fragment"><span class="math inline">\(\mathcal{D} = (x^i, y^i)_{i=0, \dots, M-1}\)</span> defines our dataset</li>
+<li class="fragment"><span class="math inline">\(f\colon \mathbb{R}^N \times \mathbb{R}^P \to \mathbb{R}\)</span> predicts <span class="math inline">\(y\)</span> from <span class="math inline">\(x\)</span> with params <span class="math inline">\(p\)</span></li>
+<li class="fragment"><span class="math inline">\(\hat{y^i} = f(x^i, p)\)</span></li>
+<li class="fragment">Loss function <span class="math inline">\(\mathcal{L}(y^i, \hat{y^i})\)</span></li>
+<li class="fragment"><span class="math display">\[
+\min_{p} \mathcal{L}(f(x^i, p), y^i)
+\]</span></li>
+</ul>
+</section>
+<section id="example" class="slide level3">
+<h3>Example</h3>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>x_0</th>
+<th> x_1</th>
+<th> y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td> 1</td>
+<td>  2</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td> 2</td>
+<td>  4</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td> 3</td>
+<td>  6</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment"><span class="math inline">\(N = 2, M=3\)</span></li>
+<li class="fragment"><span class="math inline">\(f(x) = ax_0 + bx_1 + c\)</span>, <span class="math inline">\(p = (a, b, c)\)</span>, <span class="math inline">\(P = 3\)</span></li>
+<li class="fragment"><span class="math inline">\(\mathcal{L} = \frac{1}{2}\sum_{i=0}^{2} (\hat{y^i} - y^i)^2\)</span></li>
+</ul>
+</section></section>
+<section>
+<section id="inputs-to-an-ml-algorithm" class="title-slide slide level2">
+<h2>Inputs to an ML algorithm</h2>
+<ul>
+<li class="fragment">In most cases have to be real numbers</li>
+<li class="fragment">Depending on the algorithm, we need to take care of different hyptotheis</li>
+</ul>
+</section>
+<section id="normalization" class="slide level3">
+<h3>Normalization</h3>
+<ul>
+<li class="fragment">If algorithm is based on a notion of distance: LR, SVM, NN</li>
+<li class="fragment">We need to normalize all inputs</li>
+<li class="fragment">Failing to do so, is amist of giving more importance to a feature.</li>
+<li class="fragment">Noralization types: Standard Scaling, MaxMinScaling, etc.</li>
+<li class="fragment">Regression trees don’t care about distance: only order.</li>
+</ul>
+</section>
+<section id="ordinal-order" class="slide level3">
+<h3>Ordinal order</h3>
+<ul>
+<li class="fragment">Some features have an implicit order: “bad, average, good”</li>
+<li class="fragment">They will have to be transformed as numbers.</li>
+<li class="fragment">Preserving their order is important:
+<ul>
+<li class="fragment">bad=2, average=0, good=1</li>
+<li class="fragment">bad = 0, average = 1, good = 2</li>
+</ul></li>
+</ul>
+</section>
+<section id="categories-without-order" class="slide level3">
+<h3>Categories without order</h3>
+<ul>
+<li class="fragment">Consider types of cloth: shirt, pants, sweater</li>
+<li class="fragment">Enconding as numbers asumes implicit order:
+<ul>
+<li class="fragment">shirt = 0, pants = 1, sweater = 2</li>
+</ul></li>
+<li class="fragment">Option 1: One-Hot Encoding transform into three new features.
+<ul>
+<li class="fragment"><span class="math inline">\(x_{shirt} = 1, x_{pants} = 1, x_{swaater} = 1\)</span></li>
+</ul></li>
+<li class="fragment">Option 2: Target encoding
+<ul>
+<li class="fragment">shirt = 42.1, pants = -3, sweater = 26</li>
+</ul></li>
+</ul>
+</section>
+<section id="periodic-data" class="slide level3">
+<h3>Periodic Data</h3>
+<ul>
+<li class="fragment">Similar to Ordinal Data</li>
+<li class="fragment">Monday = 0, Tuesday = 1, …, Sunday = 6</li>
+<li class="fragment">Difference Monday - Tueday != Monday - Sunday</li>
+<li class="fragment">Circle encoding fixes this problem (more in next class)</li>
+</ul>
+</section></section>
+<section>
+<section id="training-and-scoring" class="title-slide slide level2">
+<h2>Training and Scoring</h2>
+
+</section>
+<section id="basic-approach" class="slide level3">
+<h3>Basic Approach</h3>
+<ul>
+<li class="fragment">Split dataset in two: one for training and one for testing</li>
+<li class="fragment">Usually 80% / 20%</li>
+<li class="fragment">Prone to overfitting</li>
+</ul>
+</section>
+<section id="slightly-more-advanced" class="slide level3">
+<h3>Slightly more advanced</h3>
+<ul>
+<li class="fragment">Split dataset into three: training, validation, test.</li>
+<li class="fragment">Usually 80% / 10% 10%</li>
+<li class="fragment">Use training for training and validation for assesing performance.</li>
+<li class="fragment">Select hypterparamters based on validation dataset.</li>
+<li class="fragment">Fit train + validation on best parameters and evaluate on test at the end.</li>
+</ul>
+</section>
+<section id="best-practice" class="slide level3">
+<h3>Best practice</h3>
+<ul>
+<li class="fragment">Split into train and test.</li>
+<li class="fragment">Usually 80% / 20%</li>
+<li class="fragment">Split train dataset in <span class="math inline">\(X=3, 5, 10\)</span> and perform cross-validaton.
+<ul>
+<li class="fragment">Train on <span class="math inline">\(X-1\)</span> splits and validate on the remaining one.</li>
+<li class="fragment">Average score across all splits.</li>
+<li class="fragment">Chose hypterparameters with highest average score.</li>
+</ul></li>
+<li class="fragment">Fit train dataset with best hypterparameters and evaluate on test set.</li>
+</ul>
+</section>
+<section id="observations" class="slide level3">
+<h3>Observations</h3>
+<ul>
+<li class="fragment">Ideally, each enconder/transformation/etc should be re-trained on each split.</li>
+<li class="fragment">They are re-trained once at the end for evaluating the test set.</li>
+</ul>
+</section></section>
+<section>
+<section id="managing-code" class="title-slide slide level2">
+<h2>Managing code</h2>
+
+</section>
+<section id="desired-qualities" class="slide level3">
+<h3>Desired qualities</h3>
+<p>When writing code, as with any other collaborative document we would like to:</p>
+<ul>
+<li class="fragment">Have a copy in the cloud, so that progress is not lost (backup).</li>
+<li class="fragment">Have a tool that fixes problems when people modify the same file (conflicts).</li>
+<li class="fragment">Have a way to go back to a previous version (history).</li>
+</ul>
+</section>
+<section id="git" class="slide level3">
+<h3>Git</h3>
+<ul>
+<li class="fragment">Small program developed by Linus Torvalds (creator of linux) in 2005.</li>
+<li class="fragment">It is independent of the editor (TextPad, VSCode, Word, etc).</li>
+<li class="fragment">Saves all requested changes to a remote server.</li>
+<li class="fragment">Changes can be:
+<ul>
+<li class="fragment">Added (locally)</li>
+<li class="fragment">Commited (creating a checkpoint)</li>
+<li class="fragment">Pushed (uploaded to the server)</li>
+<li class="fragment">Pulled (downloaded from the server)</li>
+</ul></li>
+</ul>
+</section>
+<section id="github" class="slide level3">
+<h3>Github</h3>
+<p><img data-src="../img/github.jpg" /></p>
+</section>
+<section id="github-1" class="slide level3">
+<h3>Github</h3>
+<ul>
+<li class="fragment">Github is a service that hosts git servers.</li>
+<li class="fragment">It provides a nice interface to look at code</li>
+<li class="fragment">It is used by almost every code developer</li>
+<li class="fragment">Alternatives exists: gitlab, bitbucket, etc.</li>
+</ul>
+</section></section>
+<section>
+<section id="api" class="title-slide slide level2">
+<h2>API</h2>
+<ul>
+<li class="fragment">Once a Machine Learning model is trained, it needs to be deployed to be used.</li>
+<li class="fragment">To deploy ML models, we often use an Application Programming Interface (API).</li>
+<li class="fragment">An API is a program that exposes a custom URL: it might accept parameters and returns a response.</li>
+</ul>
+</section>
+<section id="example-api" class="slide level3">
+<h3>Example API</h3>
+<ul>
+<li class="fragment">URL: “https://example.com/sum/”</li>
+<li class="fragment">When called with specific parameters, it returns the sum of “a” and “b”</li>
+<li class="fragment">We can send paramters in the url “sum/?a=10&amp;b=5”</li>
+<li class="fragment">We get the response: 15.</li>
+</ul>
+</section>
+<section id="types-of-api" class="slide level3">
+<h3>Types of API</h3>
+<ul>
+<li class="fragment">APIs use HTTP / HTTPS.</li>
+<li class="fragment">Normally, we send “GET” or “POST” message types.</li>
+<li class="fragment">Each message contains a HEADER:
+<ul>
+<li class="fragment">URL is here</li>
+<li class="fragment">Information about the sender (type of browser, etc)</li>
+<li class="fragment">Authentication information if required.</li>
+</ul></li>
+<li class="fragment">Messages might contain a BODY:
+<ul>
+<li class="fragment">For large messages, the content can be here.</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-http-get" class="slide level3">
+<h3>Example HTTP GET</h3>
+<p><img data-src="../img/http_get.png" /></p>
+</section>
+<section id="example-http-post" class="slide level3">
+<h3>Example HTTP POST</h3>
+<p><img data-src="../img/http_post_1.png" /></p>
+</section>
+<section id="section" class="slide level3">
+<h3></h3>
+<p><img data-src="../img/http_post_2.png" /></p>
+</section></section>
+<section>
+<section id="running-environment" class="title-slide slide level2">
+<h2>Running Environment</h2>
+<ul>
+<li class="fragment">A virtual machine is a “copy of a computer” running inside a computer”.</li>
+<li class="fragment">Example: running a linux computer inside a window in a Windows computer.</li>
+<li class="fragment">It is very useful to guarantee that a program runs inside the same computer everywhere.</li>
+<li class="fragment">Quite heavyweight to share and not very comfortable to use.</li>
+</ul>
+</section>
+<section id="docker" class="slide level3">
+<h3>Docker</h3>
+<div class="columns">
+<div class="column">
+<ul>
+<li class="fragment">Same idea of virtual machine, but only core funcionality.</li>
+<li class="fragment">Described using a single file, which can be shared via Github.</li>
+<li class="fragment">Widely used, can be easily depoloyed in the cloud</li>
+</ul>
+</div><div class="column">
+<pre class="dockerfille"><code>FROM ubuntu:lastest
+
+RUN pip install -y matplotlib pandas seaborn jupyter
+
+CMD [&quot;jupyter-notebook&quot;]</code></pre>
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4//dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^4//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/math/math.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        <!-- // Help the user learn the controls by providing hints, for example by -->
+        <!-- // bouncing the down arrow when they first encounter a vertical slide -->
+        <!-- controlsTutorial: true, -->
+
+        <!-- // Determines where controls appear, "edges" or "bottom-right" -->
+        <!-- controlsLayout: 'bottom-right', -->
+
+        <!-- // Visibility rule for backwards navigation arrows; "faded", "hidden" -->
+        <!-- // or "visible" -->
+        <!-- controlsBackArrows: 'faded', -->
+
+        <!-- // Display a presentation progress bar -->
+        <!-- progress: true, -->
+
+        <!-- // Display the page number of the current slide -->
+        slideNumber: true,
+
+        <!-- // 'all', 'print', or 'speaker' -->
+        <!-- showSlideNumber: 'all', -->
+
+        <!-- // Add the current slide number to the URL hash so that reloading the -->
+        <!-- // page/copying the URL will return you to the same slide -->
+        <!-- hash: false, -->
+
+        <!-- // Start with 1 for the hash rather than 0 -->
+        <!-- hashOneBasedIndex: false, -->
+
+        <!-- // Flags if we should monitor the hash and change slides accordingly -->
+        <!-- respondToHashChanges: true, -->
+
+        <!-- // Push each slide change to the browser history -->
+        <!-- history: false, -->
+
+        <!-- // Enable keyboard shortcuts for navigation -->
+        <!-- keyboard: true, -->
+
+        <!-- // Enable the slide overview mode -->
+        <!-- overview: true, -->
+
+        <!-- // Disables the default reveal.js slide layout (scaling and centering) -->
+        <!-- // so that you can use custom CSS layout -->
+        <!-- disableLayout: false, -->
+
+        <!-- // Vertical centering of slides -->
+        <!-- center: true, -->
+
+        <!-- // Enables touch navigation on devices with touch input -->
+        <!-- touch: true, -->
+
+        <!-- // Loop the presentation -->
+        <!-- loop: false, -->
+
+        <!-- // Change the presentation direction to be RTL -->
+        <!-- rtl: false, -->
+
+        <!-- // see https://revealjs.com/vertical-slides/#navigation-mode -->
+        <!-- navigationMode: 'default', -->
+
+        <!-- // Randomizes the order of slides each time the presentation loads -->
+        <!-- shuffle: false, -->
+
+        <!-- // Turns fragments on and off globally -->
+        <!-- fragments: true, -->
+
+        <!-- // Flags whether to include the current fragment in the URL, -->
+        <!-- // so that reloading brings you to the same fragment position -->
+        <!-- fragmentInURL: true, -->
+
+        <!-- // Flags if the presentation is running in an embedded mode, -->
+        <!-- // i.e. contained within a limited portion of the screen -->
+        <!-- embedded: false, -->
+
+        <!-- // Flags if we should show a help overlay when the questionmark -->
+        <!-- // key is pressed -->
+        <!-- help: true, -->
+
+        <!-- // Flags if it should be possible to pause the presentation (blackout) -->
+        <!-- pause: true, -->
+
+        <!-- // Flags if speaker notes should be visible to all viewers -->
+        <!-- showNotes: false, -->
+
+        <!-- // Global override for autoplaying embedded media (null/true/false) -->
+        <!-- autoPlayMedia: null, -->
+
+        <!-- // Global override for preloading lazy-loaded iframes (null/true/false) -->
+        <!-- preloadIframes: null, -->
+
+        <!-- // Number of milliseconds between automatically proceeding to the -->
+        <!-- // next slide, disabled when set to 0, this value can be overwritten -->
+        <!-- // by using a data-autoslide attribute on your slides -->
+        <!-- autoSlide: 0, -->
+
+        <!-- // Stop auto-sliding after user input -->
+        <!-- autoSlideStoppable: true, -->
+
+        <!-- // Use this method for navigation when auto-sliding -->
+        <!-- autoSlideMethod: null, -->
+
+        <!-- // Specify the average time in seconds that you think you will spend -->
+        <!-- // presenting each slide. This is used to show a pacing timer in the -->
+        <!-- // speaker view -->
+        <!-- defaultTiming: null, -->
+
+        <!-- // Enable slide navigation via mouse wheel -->
+        <!-- mouseWheel: false, -->
+
+        <!-- // The display mode that will be used to show slides -->
+        <!-- display: 'block', -->
+
+        <!-- // Hide cursor if inactive -->
+        <!-- hideInactiveCursor: true, -->
+
+        <!-- // Time before the cursor is hidden (in ms) -->
+        <!-- hideCursorTime: 5000, -->
+
+        <!-- // Opens links in an iframe preview overlay -->
+        <!-- previewLinks: false, -->
+
+        <!-- // Transition style (none/fade/slide/convex/concave/zoom) -->
+        <!-- transition: 'slide', -->
+
+        <!-- // Transition speed (default/fast/slow) -->
+        <!-- transitionSpeed: 'default', -->
+
+        <!-- // Transition style for full page slide backgrounds -->
+        <!-- // (none/fade/slide/convex/concave/zoom) -->
+        <!-- backgroundTransition: 'fade', -->
+
+        <!-- // Number of slides away from the current that are visible -->
+        <!-- viewDistance: 3, -->
+
+        <!-- // Number of slides away from the current that are visible on mobile -->
+        <!-- // devices. It is advisable to set this to a lower number than -->
+        <!-- // viewDistance in order to save resources. -->
+        <!-- mobileViewDistance: 2, -->
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: '100%',
+
+        height: '100%',
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+	    tex: {
+		Macros: {
+		RR:  "{\\bf R}",
+		},
+	    },
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
