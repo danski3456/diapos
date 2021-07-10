@@ -6,4 +6,4 @@ name="${name%%.*}"
 path=$(dirname $1)
 
 
-pandoc -d utils/params.yaml -o "$name.html" "$1"
+pandoc -d utils/params.yaml -o "$path/$name.html" "$1"
