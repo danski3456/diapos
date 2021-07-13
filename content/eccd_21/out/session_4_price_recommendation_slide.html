@@ -296,10 +296,56 @@ graph LR
 <li class="fragment">Para cada clase en nuestro dataset podemos obtener una predicción ($Q_{0.5}) y un rango: <span class="math inline">\([Q_{0.1}, Q_{0.9}]\)</span>.</li>
 </ul>
 </section></section>
+<section>
 <section id="shapley-value" class="title-slide slide level2">
 <h2>Shapley Value</h2>
 
 </section>
+<section id="definición-teoría-de-juegos-cooperativos" class="slide level3">
+<h3>Definición: Teoría de Juegos Cooperativos</h3>
+<ul>
+<li class="fragment"><span class="math inline">\(N\)</span> jugadores.</li>
+<li class="fragment">Cada subgrupo de jugadores tiene un valor asociado <span class="math inline">\(v(S), S \subset N\)</span>.</li>
+<li class="fragment">Los jugadores se dividen en subgrupos y se reparten <span class="math inline">\(v(S)\)</span> de su grupo.</li>
+<li class="fragment">Qué grupos se van a formar?</li>
+<li class="fragment">Modelamos negociación entre jugadores bajo existencia de un contrato.</li>
+</ul>
+</section>
+<section id="ejemplo-canónico" class="slide level3">
+<h3>Ejemplo Canónico</h3>
+<ul>
+<li class="fragment">3 jugadores. Jugador 1 y 2 producen guantes izquierdos y 3 derechos.</li>
+<li class="fragment">Un par de guantes se vende por $1, pero guantes solos por 0.</li>
+<li class="fragment">Si todos los jugadores se juntan, cuánto le corresponde a cada uno?</li>
+<li class="fragment">Hay que tener en cuenta las negociaciones entre ellos!</li>
+</ul>
+</section>
+<section id="ejemplo-1" class="slide level3">
+<h3>Ejemplo</h3>
+<p>El Shapely Value es el promedio de las contribuciones marginales de cada jugador.</p>
+<p><span class="math display">\[
+{\displaystyle 
+{\begin{array}{|c|r|}
+    {\text{Orden de llegada}}\,\!&amp; \text{Contribución Marginal (1)}\\
+    \hline {1,2,3}&amp;v(\{1\})-v(\varnothing )=0-0=0\\
+    {1,3,2}&amp;v(\{1\})-v(\varnothing )=0-0=0\\
+    {2,1,3}&amp;v(\{1,2\})-v(\{2\})=0-0=0\\
+    {2,3,1}&amp;v(\{1,2,3\})-v(\{2,3\})=1-1=0\\
+    {3,1,2}&amp;v(\{1,3\})-v(\{3\})=1-0=1\\
+    {3,2,1}&amp;v(\{1,3,2\})-v(\{3,2\})=0-0=0
+\end{array}}
+}
+\]</span></p>
+</section>
+<section id="ejemplo-cont." class="slide level3">
+<h3>Ejemplo cont.</h3>
+<p>Calculamos el valor que le corresponde al jugador 1 como el promedio:</p>
+<p><span class="math display">\[ 
+\phi_1(v) = \frac{0 + 0 + 0 + 0 + 1 + 0}{6} = \frac{1}{6}
+\]</span></p>
+<p>Por simetría, a 2 le corresponde lo mismo y por tanto, a 3 le corresponde</p>
+<p><span class="math display">\[\phi_3(v) = 1 - \frac{2}{6} = \frac{4}{6}\]</span></p>
+</section></section>
     </div>
   </div>
 

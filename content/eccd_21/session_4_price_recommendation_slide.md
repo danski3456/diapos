@@ -199,4 +199,49 @@ La idea es simple: usar pinball como objectivo a minimizar.
 
 ## Shapley Value
 
+### Definición: Teoría de Juegos Cooperativos
 
+* $N$ jugadores.
+* Cada subgrupo de jugadores tiene un valor asociado $v(S), S \subset N$.
+* Los jugadores se dividen en subgrupos y se reparten $v(S)$ de su grupo.
+* Qué grupos se van a formar?
+* Modelamos negociación entre jugadores bajo existencia de un contrato.
+
+### Ejemplo Canónico
+
+* 3 jugadores. Jugador 1 y 2 producen guantes izquierdos y 3 derechos.
+* Un par de guantes se vende por $1, pero guantes solos por 0.
+* Si todos los jugadores se juntan, cuánto le corresponde a cada uno?
+* Hay que tener en cuenta las negociaciones entre ellos!
+
+
+
+### Ejemplo
+
+El Shapely Value es el promedio de las contribuciones marginales de cada jugador.
+
+$$
+{\displaystyle 
+{\begin{array}{|c|r|}
+    {\text{Orden de llegada}}\,\!& \text{Contribución Marginal (1)}\\
+    \hline {1,2,3}&v(\{1\})-v(\varnothing )=0-0=0\\
+    {1,3,2}&v(\{1\})-v(\varnothing )=0-0=0\\
+    {2,1,3}&v(\{1,2\})-v(\{2\})=0-0=0\\
+    {2,3,1}&v(\{1,2,3\})-v(\{2,3\})=1-1=0\\
+    {3,1,2}&v(\{1,3\})-v(\{3\})=1-0=1\\
+    {3,2,1}&v(\{1,3,2\})-v(\{3,2\})=0-0=0
+\end{array}}
+}
+$$
+
+### Ejemplo cont.
+
+Calculamos el valor que le corresponde al jugador 1 como el promedio:
+
+$$ 
+\phi_1(v) = \frac{0 + 0 + 0 + 0 + 1 + 0}{6} = \frac{1}{6}
+$$
+
+Por simetría, a 2 le corresponde lo mismo y por tanto, a 3 le corresponde 
+
+$$\phi_3(v) = 1 - \frac{2}{6} = \frac{4}{6}$$
