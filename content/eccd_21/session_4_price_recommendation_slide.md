@@ -245,3 +245,23 @@ $$
 Por simetría, a 2 le corresponde lo mismo y por tanto, a 3 le corresponde 
 
 $$\phi_3(v) = 1 - \frac{2}{6} = \frac{4}{6}$$
+
+## Shapely Value en Machine Learning
+
+* Interpretamos cada feature como un jugador
+* Lo que nos interesa es la contribución marginal de cada feature en la predicción final.
+* Tenemos que encontrar una forma de calcular una predicción para "sub conjuntos de features".
+* Calcular el shapley value es un problema computacionalmente duro: necesitamos aproximaciones.
+* Queremos poder reutilizar los modelos que ya tenemos, sin re-entrenar.
+
+### Idea
+
+* Para simular que un feature no está, replazarlo por su valor esperado en el dataset.
+* Usar sampling para el orden.
+* Dependiendo del modelo de fondo, pueden haber optimizaciones mejor.
+
+### SHAP
+
+Es una biblioteca que calcula shapley values para varios modelos:
+
+![](../img/shapley_value.png){ width="70%" }

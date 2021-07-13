@@ -346,6 +346,30 @@ graph LR
 <p>Por simetría, a 2 le corresponde lo mismo y por tanto, a 3 le corresponde</p>
 <p><span class="math display">\[\phi_3(v) = 1 - \frac{2}{6} = \frac{4}{6}\]</span></p>
 </section></section>
+<section>
+<section id="shapely-value-en-machine-learning" class="title-slide slide level2">
+<h2>Shapely Value en Machine Learning</h2>
+<ul>
+<li class="fragment">Interpretamos cada feature como un jugador</li>
+<li class="fragment">Lo que nos interesa es la contribución marginal de cada feature en la predicción final.</li>
+<li class="fragment">Tenemos que encontrar una forma de calcular una predicción para “sub conjuntos de features”.</li>
+<li class="fragment">Calcular el shapley value es un problema computacionalmente duro: necesitamos aproximaciones.</li>
+<li class="fragment">Queremos poder reutilizar los modelos que ya tenemos, sin re-entrenar.</li>
+</ul>
+</section>
+<section id="idea" class="slide level3">
+<h3>Idea</h3>
+<ul>
+<li class="fragment">Para simular que un feature no está, replazarlo por su valor esperado en el dataset.</li>
+<li class="fragment">Usar sampling para el orden.</li>
+<li class="fragment">Dependiendo del modelo de fondo, pueden haber optimizaciones mejor.</li>
+</ul>
+</section>
+<section id="shap" class="slide level3">
+<h3>SHAP</h3>
+<p>Es una biblioteca que calcula shapley values para varios modelos:</p>
+<p><img data-src="../img/shapley_value.png" style="width:70.0%" /></p>
+</section></section>
     </div>
   </div>
 
