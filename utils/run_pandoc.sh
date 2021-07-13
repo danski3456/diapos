@@ -9,4 +9,4 @@ outdir="$path/out"
 mkdir -p "$outdir"
 
 
-pandoc -d utils/params.yaml -o "$outdir/$name.html" "$1"
+pandoc --from markdown --to revealjs -d utils/params.yaml -o "$outdir/$name.html" "$1"
