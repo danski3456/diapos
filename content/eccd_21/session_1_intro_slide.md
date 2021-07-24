@@ -3,41 +3,152 @@ title: Estrategias comerciales con datos
 date: Julio - Agosto, 2021
 ---
 
-## Docentes
 
-### Diego Kiedanski
+## Presentación
 
-* Ingeniero en Comptuación, Udelar
-* Doctor en Ingeniería, Institut Polytechnique de Paris
-* ML Engineer - Tryolabs
+### Universidad de la República (Montevideo)
+::: columns
+:::: column
+
+![](img/fing.jpg){ width="70%" }
+
+::::
+:::: column
+* Ingeniero en Computación
+* 2013 - 2017
+* Tesis en hacer mapas de internet.
+::::
+:::
+
+### Télécom Paris (Paris)
+
+::: columns
+:::: column
+![](img/tpt.jpg){ width="70%" }
+::::
+:::: column
+* Doctorado en Redes, Información y Comunicaciones.
+* 2018 - 2020
+* Teoría de juegos aplicada a las redes eléctricas.
+* Como compartir energía renovable entre vecinos.
+::::
+:::
+
+### Centrica (Bruselas)
+
+::: columns
+:::: column
+![](img/centrica.jpg){ width="70%" }
+::::
+:::: column
+* Ingeniero en Investigación y Desarrollo
+* 2020 - 2021
+* Posibles nuevos modelos de negocio usnado SOA.
+* Aplicación a mercados de energía
+::::
+:::
+
+### Tryolabs (Montevideo)
+
+::: columns
+:::: column
+![](img/tryo_blurred.png){ width="70%" }
+::::
+:::: column
+* Lead Machine Learning Engineer
+* 2021 - Presente
+* Consultoría en Inteligencia Artificial.
+* Ayudamos al cliente en su AI Journey
+* Contenido de este curso se basa en gran medida en su experiencia como empresa. 
+::::
+:::
 
 
 ## Motivación
 
-* Tienen sentido para un pequeño negocio usar estrategias comerciales basadas en datos (ECBD)?
-* Si la respuesta es sí, cuales?
-* Cuál es la mejor estrategia para llevar a la práctica ECBDs?
+::: columns
+:::: column
+```{=html}
+<div>
+<i class="fas fa-store" style="font-size:200px;color:red;"></i> 
+<i class="fas fa-road" style="font-size:200px;"></i> 
+<i class="fas fa-store" style="font-size:100px;color:green;"></i> 
+</div>
+```
+::::
+:::: column
+* Super(mercado) ROJO tiene mejores precios debio a volumen.
+* Super VERDE se ve amenzadao. Clientela leal disminuye.
+* Super VERDE quiere mejorar eficiencia. Puede usar sus datos?
+* Ventas son todas electronicas e inventario también.
+::::
+:::
 
 
-### Motivación cont.
+## Cuando aplicar ECCD?
 
-* El supermercado de barrio SUPERMERK2 quiere mejorar su eficiencia y abrazar la "trasformación digitial". Ya cuenta con un sistema informático que le permite acceder a todas sus ventas, pero fuera de eso, sus procesos siguen siendo manuales.
+### Mejorar el proceso de precificación
 
-* Su mayor compentencia es la cadena de supermercados MALVADO, cuyo local se encuentra a 1 cuadra y a fuerza de volumen, puede ofrecer mejores precios.
+::: columns
+:::: column
+```{=html}
+<div>
+<i class="fa fa-cookie" style="font-size:100px;color:blue;"></i> 
+</div>
+```
 
-* Hasta ahora SUPERMERK2 ha sobrevivido gracias a la comunidad de vecinos que lo rodea, pero lentamente esto está dejando de funcionar..
+* Producto comercial. Ejemplo: Oreos.
+* Tiene precio de venta sugerido.
+* Poco margen para realizar cambios de precio.
+* Descuentos pueden atraer clientes.
 
+::::
+:::: column
 
-## Posibles areas a mejorar
+```{=html}
+<div>
+<i class="fa fa-cookie" style="font-size:100px;color:green;"></i> 
+</div>
+```
 
-### Mejorar el proceso de precificación:
+* Producto artensanl, hecho por vecino. 
+* No tiene un precio por defecto
+* Rango muy grande para variación de precios. 
+* Más dificil de precificar.
 
-* Muchos productos sin precio sugerido (el vecino deja medialunas caseras para vender)
+::::
+:::
 
 ###  Mejorar la predicción de la demanda: 
 
-* Mejor manejo del stock
-* Mejor uso del personal (?)
+::: columns
+:::: column
+```{=html}
+<div>
+<i class="fas fa-boxes" style="font-size:100px;"></i> 
+</div>
+```
+
+* Se vende una unidad y se repone.
+* Si no hay más ventas, gasto innecesario.
+* Si hay ventas, escenario ideal.
+
+::::
+:::: column
+
+```{=html}
+<div>
+<i class="fas fa-box" style="font-size:100px;"></i> 
+</div>
+```
+
+* Si se vende una unidad no se repone.
+* Si no hay más ventas, escenario ideal.
+* Si hay más ventas, oportunidades perdidas.
+
+::::
+:::
+
 
 ###  Optimización de precios:
 
@@ -66,6 +177,21 @@ date: Julio - Agosto, 2021
 * La ganancia es potencial: nuevos clientes, posibilidades de expansión, etc.
 * El objetivo es diferenciarse de la competencia
 * Ejemplo: carrito inteligente que hace de caja registradora.
+
+### Caso de ejemplo: Amazon Prime
+
+::: columns
+:::: column
+Image
+::::
+:::: column
+* Objetivo: Entrega de compras en 24h
+* No existía un servicio similar.
+* Gran desafío logistico (y de ML)
+* A perdida durante los primeros años.
+* Logro crear habito y ver online shopping como equivalente a ir a la tienda.
+::::
+:::
 
 ### Buenas prácticas
 
@@ -98,13 +224,13 @@ Incluso las empresas más famosas en el rubro (Google, Microsoft, etc) cometen e
 
 ::::
 :::: column
-![Perfil de Twitter de Tay](../img/tay_bot_logo.jpg){ width="75%" }
+![Perfil de Twitter de Tay](img/tay_bot_logo.jpg){ width="75%" }
 ::::
 :::
 
 ### Tay tweets
 
-![Algunos de los tweets de Tay](../img/tay_tweets.png){ width="75%" }
+![Algunos de los tweets de Tay](img/tay_tweets.png){ width="75%" }
 
 ### Amazon automatiza contrataciones
 

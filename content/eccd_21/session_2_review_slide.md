@@ -120,7 +120,7 @@ When writing code, as with any other collaborative document we would like to:
 
 ### Github
 
-![](../img/github.jpg)
+![](img/github.jpg)
 
 ### Github
 
@@ -167,15 +167,15 @@ graph TD;
 
 ### Example HTTP GET
 
-![](../img/http_get.png)
+![](img/http_get.png)
 
 ### Example HTTP POST
 
-![](../img/http_post_1.png)
+![](img/http_post_1.png)
 
 ### 
 
-![](../img/http_post_2.png)
+![](img/http_post_2.png)
 
 ## Running Environment 
 

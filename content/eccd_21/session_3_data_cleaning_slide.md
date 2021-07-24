@@ -19,7 +19,7 @@ date: 2nd August 2021
 ::::
 :::: column
 
-![](../img/devoto_form.png)
+![](img/devoto_form.png)
 
 ::::
 :::

@@ -168,7 +168,7 @@ $$ \varrho_{\tau}(z) = z \times (\tau - \mathbb{1}_{\{ y < 0 \}}) $$
 
 ### Ejemplo de tres métricas
 
-![](../img/quantile_regression_metrics.png){ width="40%" height="10%" }
+![](img/quantile_regression_metrics.png){ width="40%" height="10%" }
 
 ### Ejemplpo de regresión por quantiles
 
@@ -183,10 +183,10 @@ La idea es simple: usar pinball como objectivo a minimizar.
 
 ::: columns
 :::: column
-![](../img/regression_lines.png){ width="70%" height="40%" }
+![](img/regression_lines.png){ width="70%" height="40%" }
 ::::
 :::: column
-![](../img/quantile_hist_70.png){ width="90%" height="70%" }
+![](img/quantile_hist_70.png){ width="90%" height="70%" }
 ::::
 :::
 
@@ -264,4 +264,10 @@ $$\phi_3(v) = 1 - \frac{2}{6} = \frac{4}{6}$$
 
 Es una biblioteca que calcula shapley values para varios modelos:
 
-![](../img/shapley_value.png){ width="70%" }
+![](img/shapley_value.png){ width="70%" }
+
+## Test
+
+```plaintext
+Esto es un parrafo que queda subrayado
+```

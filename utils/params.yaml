@@ -1,7 +1,7 @@
 to: revealjs
 incremental: true
 
-template: utils/template.revealjs
+template: ../../utils/template.revealjs
 slide-level: 3
 
 # variables:
@@ -18,8 +18,9 @@ metadata:
 
 filters:
 - pantable
-# - type: json
-#   path: utils/mermaid-filter.py 
 #
 html-math-method:
   method: mathjax
+
+css:
+  - ../../utils/style.css

@@ -22,8 +22,10 @@ jobs:
       - name: Pip install
         run: pip install \
           pantable \
+          codebraid
           "pandocfilters==1.4.3" \
-          "pandoc-mermaid-filter==0.1.0"
+          "pandoc-mermaid-filter==0.1.0" \
+          "jupyter-client==6.1.12"
       - name: Converting the slide to html
         run: find content -type f -name "*slide.md" -exec ./utils/run_pandoc.sh {} \; 
       - name: Update readme
