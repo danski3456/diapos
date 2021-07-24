@@ -182,14 +182,14 @@ date: Julio - Agosto, 2021
 
 ::: columns
 :::: column
-Image
+![](img/amazon_2day.jpg){ width="70%" }
 ::::
 :::: column
-* Objetivo: Entrega de compras en 24h
+* Delivery en 48h por 79$ al año.
 * No existía un servicio similar.
-* Gran desafío logistico (y de ML)
-* A perdida durante los primeros años.
-* Logro crear habito y ver online shopping como equivalente a ir a la tienda.
+* Gran desafío logistico (y de ML).
+* Se estima que puede llegar a peder 1bn al año. 
+* Revoluciono como compramos online (18bn a 900bn).
 ::::
 :::
 
@@ -207,9 +207,9 @@ Image
 
 ## Casos famosos en la industria
 
-Es importante mirar casos famosos en la industria y aprender de ellos.
+> I’m increasingly inclined to think that there should be some regulatory oversight, maybe at the national and international level, just to make sure that we don’t do something very foolish. I mean with artificial intelligence we’re summoning the demon.
 
-Incluso las empresas más famosas en el rubro (Google, Microsoft, etc) cometen errores.
+Elon Musk
 
 ### Tay, el niño bot de Microsoft
 
@@ -224,13 +224,13 @@ Incluso las empresas más famosas en el rubro (Google, Microsoft, etc) cometen e
 
 ::::
 :::: column
-![Perfil de Twitter de Tay](img/tay_bot_logo.jpg){ width="75%" }
+![Perfil de Twitter de Tay](img/tay_bot_logo.jpg){ width="50%" }
 ::::
 :::
 
 ### Tay tweets
 
-![Algunos de los tweets de Tay](img/tay_tweets.png){ width="75%" }
+![Algunos de los tweets de Tay](img/tay_tweets.png){ height="500px" }
 
 ### Amazon automatiza contrataciones
 
