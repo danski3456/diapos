@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Diego Kiedanski">
-  <title>Default Slide</title>
+  <title>Descripción del Proyecto</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -27,43 +27,349 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Default Slide</h1>
+  <h1 class="title">Descripción del Proyecto</h1>
   <p class="author">Diego Kiedanski</p>
-  <p class="date">9th July 2021</p>
+  <p class="date">4 de Agosto, 2021</p>
 </section>
 
-<section id="hi" class="title-slide slide level2">
-<h2>HI</h2>
-<p><img data-src="_codebraid/7389581be2bb8ea6/python3--002-01.png" /></p>
-</section>
-
-<section id="list" class="title-slide slide level2">
-<h2>List</h2>
+<section id="resumen" class="title-slide slide level2">
+<h2>Resumen</h2>
 <ul>
-<li class="fragment">One</li>
-<li class="fragment">Two</li>
-<li class="fragment">Three</li>
+<li class="fragment">Un supermercado quiere mejorar la experiencia de sus clientes.</li>
+<li class="fragment">Actualmente los clientes pesan su propia fruta y verdura.</li>
+<li class="fragment">Clientes se han quejado de que cuesta encontrar el item correcto en la lista.</li>
+<li class="fragment">Objetivo: instalar una cámara que reconozca automáticamente el producto.</li>
 </ul>
 </section>
 
-<section id="two-cols" class="title-slide slide level2">
-<h2>Two cols</h2>
-<div class="columns">
-<div class="column">
-<p>Column 1</p>
-</div><div class="column">
-
-</div><p>Column 2</p>
-</div>
+<section id="objetivo" class="title-slide slide level2">
+<h2>Objetivo</h2>
+<ul>
+<li class="fragment">Entrenar un modelo que prediga la categoría de una fruta o verdura a partir de fotos.</li>
+<li class="fragment">El modelo va a usarse para automáticamente asignar el precio al item, sin chequeo por parte del usuario.</li>
+</ul>
 </section>
 
-<section id="good-bye" class="title-slide slide level2">
-<h2>Good Bye!</h2>
-<p><span class="math display">\[ e^{x} = \int_{1}^{2} dx\]</span></p>
-<figure>
-<img data-src="img/uy_flag.png" alt="Uy Flag" /><figcaption aria-hidden="true">Uy Flag</figcaption>
-</figure>
+<section id="restricciones" class="title-slide slide level2">
+<h2>Restricciones</h2>
+<ul>
+<li class="fragment">Para mejorar la experiencia de usuario, no va a haber chequeos manuales de la etiqueta.</li>
+<li class="fragment">Es importante poder calcular que tan seguido el modelo le va a errar.</li>
+</ul>
 </section>
+
+<section id="algunas-preocupaciones-del-cliente" class="title-slide slide level2">
+<h2>Algunas preocupaciones del cliente</h2>
+<ul>
+<li class="fragment">Si la etiqueta es correcta, la consumidora va a estar satisfecha.</li>
+<li class="fragment">Si la etiqueta es incorrecta:
+<ul>
+<li class="fragment">Y el producto es más caro: la consumidora se va a quejar de que le estamos robando.</li>
+<li class="fragment">Y el producto es más barato: la consumidora estará contenta, pero el cliente pierde dinero.</li>
+</ul></li>
+</ul>
+</section>
+
+<section>
+<section id="tarea" class="title-slide slide level2">
+<h2>Tarea</h2>
+<ul>
+<li class="fragment">Entrenar un modelo para clasificar fruta y verdura usando el dataset que vamos a proporcionar.</li>
+<li class="fragment">Usar la tabla de costos (a continuación) para calcular el costo/riesgo para el cliente en función de la accuracy del modelo entrenado.</li>
+<li class="fragment">Sugerir posibles pasos a seguir en función de los resultados encontrados.</li>
+<li class="fragment">No se espera que el modelo sea super preciso, sino que el énfasis va a estar en el end-to-end de la propuesta.</li>
+<li class="fragment">La tarea es en grupos de 4 a 5 estudiantes.</li>
+</ul>
+</section>
+<section id="resultado-del-proyecto" class="slide level3">
+<h3>Resultado del proyecto</h3>
+<ul>
+<li class="fragment">Código usando para la implementación en Github.</li>
+<li class="fragment">“Pitch” de 10 minutos (slides + presentación) donde se describe:
+<ul>
+<li class="fragment">Generalidades de la implementación (para un público no técnico).</li>
+<li class="fragment">Accuracy del modelo y costos asociados en función de la tabla de costos (ver abajo).</li>
+<li class="fragment">Posibles mejoras y pasos a seguir.</li>
+</ul></li>
+<li class="fragment">Fecha de entrega a definir. Posiblemente solo entrega de video, pero quizas presentación por Teams, a definir.</li>
+</ul>
+</section></section>
+<section>
+<section id="tablas-de-costos" class="title-slide slide level2">
+<h2>Tablas de costos</h2>
+
+</section>
+<section id="costos-generales" class="slide level3">
+<h3>Costos Generales</h3>
+<ul>
+<li class="fragment">El costo para el cliente de cobrarle a un consumidor X en lugar de Y:
+<ul>
+<li class="fragment">Si <span class="math inline">\((X &gt;= Y)\)</span> será <span class="math inline">\(5(X - Y)\)</span>.</li>
+<li class="fragment">Si <span class="math inline">\((X &lt; Y)\)</span> será <span class="math inline">\(Y - X\)</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="precio-de-los-distintos-productos-por-kilo" class="slide level3">
+<h3>Precio de los distintos productos por kilo</h3>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th> Precio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Apple</td>
+<td>74</td>
+</tr>
+<tr class="even">
+<td>Asparagus</td>
+<td> 600</td>
+</tr>
+<tr class="odd">
+<td>Aubergine</td>
+<td> 158</td>
+</tr>
+<tr class="even">
+<td>Avocado</td>
+<td> 500</td>
+</tr>
+<tr class="odd">
+<td>Banana</td>
+<td> 115</td>
+</tr>
+<tr class="even">
+<td>Cabbage</td>
+<td> 54</td>
+</tr>
+<tr class="odd">
+<td>Carrots</td>
+<td> 89</td>
+</tr>
+<tr class="even">
+<td>Cucumber</td>
+<td> 94</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section" class="slide level3">
+<h3></h3>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th> Precio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Garlic</td>
+<td> 42 ut</td>
+</tr>
+<tr class="even">
+<td>Ginger</td>
+<td> 272</td>
+</tr>
+<tr class="odd">
+<td>Juice</td>
+<td> 150</td>
+</tr>
+<tr class="even">
+<td>Kiwi</td>
+<td> 178</td>
+</tr>
+<tr class="odd">
+<td>Leek</td>
+<td> 50</td>
+</tr>
+<tr class="even">
+<td>Lemon</td>
+<td> 52</td>
+</tr>
+<tr class="odd">
+<td>Lime</td>
+<td> 119</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-1" class="slide level3">
+<h3></h3>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th> Precio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mango</td>
+<td> 268</td>
+</tr>
+<tr class="even">
+<td>Melon</td>
+<td> 109</td>
+</tr>
+<tr class="odd">
+<td>Milk</td>
+<td> 33</td>
+</tr>
+<tr class="even">
+<td>Mushroom</td>
+<td> 1000</td>
+</tr>
+<tr class="odd">
+<td>Nectarine</td>
+<td> 194</td>
+</tr>
+<tr class="even">
+<td>Oat-Milk</td>
+<td> 207</td>
+</tr>
+<tr class="odd">
+<td>Oatghurt</td>
+<td> 500</td>
+</tr>
+<tr class="even">
+<td>Onion</td>
+<td> 46</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-2" class="slide level3">
+<h3></h3>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th> Precio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Orange</td>
+<td> 35</td>
+</tr>
+<tr class="even">
+<td>Papaya</td>
+<td> 700</td>
+</tr>
+<tr class="odd">
+<td>Passion-Fruit</td>
+<td> 1000</td>
+</tr>
+<tr class="even">
+<td>Peach</td>
+<td> 194</td>
+</tr>
+<tr class="odd">
+<td>Pear</td>
+<td> 89</td>
+</tr>
+<tr class="even">
+<td>Pepper</td>
+<td> 158</td>
+</tr>
+<tr class="odd">
+<td>Pineapple</td>
+<td> 400</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-3" class="slide level3">
+<h3></h3>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th> Precio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Plum</td>
+<td> 199</td>
+</tr>
+<tr class="even">
+<td>Pomegranate</td>
+<td> 700</td>
+</tr>
+<tr class="odd">
+<td>Potato</td>
+<td> 89</td>
+</tr>
+<tr class="even">
+<td>Red-Beet</td>
+<td> 89</td>
+</tr>
+<tr class="odd">
+<td>Red-Grapefruit</td>
+<td> 74</td>
+</tr>
+<tr class="even">
+<td>Satsumas</td>
+<td> 44 </td>
+</tr>
+<tr class="odd">
+<td>Sour-Cream</td>
+<td> 300</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-4" class="slide level3">
+<h3></h3>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th> Precio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Soy-Milk</td>
+<td> 190</td>
+</tr>
+<tr class="even">
+<td>Soyghurt</td>
+<td> 300</td>
+</tr>
+<tr class="odd">
+<td>Tomato</td>
+<td> 109</td>
+</tr>
+<tr class="even">
+<td>Yoghurt</td>
+<td> 67</td>
+</tr>
+<tr class="odd">
+<td>Zucchini</td>
+<td> 145</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="dynamic-pricing-competition" class="title-slide slide level2">
+<h2>Dynamic Pricing Competition</h2>
+
+</section>
+<section id="alguien-quiere-crédito-extra" class="slide level3">
+<h3>Alguien quiere crédito extra?</h3>
+<p><img data-src="img/dpc.png" width="800" /> <a href="https://dynamic-pricing-competition.com">Link</a></p>
+</section></section>
     </div>
   </div>
 
@@ -84,6 +390,8 @@
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
+	pdfSeparateFragments: false,
 
         <!-- // Help the user learn the controls by providing hints, for example by -->
         <!-- // bouncing the down arrow when they first encounter a vertical slide -->
@@ -256,7 +564,7 @@
           RevealMath,
           RevealNotes,
           RevealSearch,
-          RevealZoom
+          RevealZoom,
         ]
       });
     </script>

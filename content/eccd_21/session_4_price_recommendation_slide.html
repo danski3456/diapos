@@ -96,8 +96,8 @@
 </section>
 
 <section>
-<section id="introduction" class="title-slide slide level2">
-<h2>Introduction</h2>
+<section id="introducción" class="title-slide slide level2">
+<h2>Introducción</h2>
 <ul>
 <li class="fragment">Definir el precio de objectos es fundamental en muchas industrias</li>
 <li class="fragment">Muchas veces el precio es una variable compleja de determinar.</li>
@@ -227,7 +227,7 @@ graph LR
 <h3>Repaso: regressión</h3>
 <div class="columns">
 <div class="column">
-<p><span class="math display">\[ MSE = \min_u \sum_{i=1}^{N \times K} (y_i - u)^2 \]</span></p>
+<p><span class="math display">\[ MSE = \min_u \sum_{i=1}^{N} (y_i - u)^2 \]</span></p>
 </div><div class="column">
 <ul>
 <li class="fragment">Métrica de error por defecto</li>
@@ -256,7 +256,7 @@ graph LR
 <h3>Más métricas: Pinball</h3>
 <div class="columns">
 <div class="column">
-<p><span class="math display">\[ PINBALL_{\tau} = \min_u \sum_{i=1}^{N \times K} \varrho_{\tau}(y_i - u) \]</span> <span class="math display">\[ \varrho_{\tau}(z) = z \times (\tau - \mathbb{1}_{\{ y &lt; 0 \}}) \]</span></p>
+<p><span class="math display">\[ PINBALL_{\tau} = \min_u \sum_{i=1}^{N} \varrho_{\tau}(y_i - u) \]</span> <span class="math display">\[ \varrho_{\tau}(z) = z \times (\tau - \mathbb{1}_{\{ z &lt; 0 \}}) \]</span></p>
 </div><div class="column">
 <ul>
 <li class="fragment">Métrica menos conocida</li>
@@ -372,10 +372,6 @@ graph LR
 <p>Es una biblioteca que calcula shapley values para varios modelos:</p>
 <p><img data-src="img/shapley_value.png" style="width:70.0%" /></p>
 </section></section>
-<section id="test" class="title-slide slide level2">
-<h2>Test</h2>
-<pre class="plaintext"><code>Esto es un parrafo que queda subrayado</code></pre>
-</section>
     </div>
   </div>
 
@@ -396,6 +392,8 @@ graph LR
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
+	pdfSeparateFragments: false,
 
         <!-- // Help the user learn the controls by providing hints, for example by -->
         <!-- // bouncing the down arrow when they first encounter a vertical slide -->
@@ -568,7 +566,7 @@ graph LR
           RevealMath,
           RevealNotes,
           RevealSearch,
-          RevealZoom
+          RevealZoom,
         ]
       });
     </script>

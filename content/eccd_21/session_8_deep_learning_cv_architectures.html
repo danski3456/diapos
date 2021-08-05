@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Diego Kiedanski">
+  <title>Visión por Computadora y Deep Learning</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../utils/style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Visión por Computadora y Deep Learning</h1>
+  <p class="author">Diego Kiedanski</p>
+  <p class="date">7 de Agosto</p>
+</section>
+
+<section id="objetivos" class="title-slide slide level2">
+<h2>Objetivos</h2>
+<ul>
+<li class="fragment">Ejemplos motivadores</li>
+<li class="fragment">Repaso de redes neuronales</li>
+<li class="fragment">Imagenes como matrices</li>
+<li class="fragment">Componentes tradicionales de una CNN</li>
+<li class="fragment">GPU</li>
+</ul>
+</section>
+
+<section>
+<section id="ejemplos" class="title-slide slide level2">
+<h2>Ejemplos</h2>
+
+</section>
+<section id="de-quién-es-esa-cara" class="slide level3">
+<h3>De quién es esa cara?</h3>
+<p><a href="https://thispersondoesnotexist.com">Esta persona no existe, enlace</a></p>
+</section>
+<section id="gatos-y-líneas" class="slide level3">
+<h3>Gatos y líneas</h3>
+<p><a href="https://affinelayer.com/pixsrv/">Dibujame como una de tus chicas francesas..</a></p>
+</section></section>
+<section>
+<section id="repaso-de-redes-neuronales" class="title-slide slide level2">
+<h2>Repaso de Redes Neuronales</h2>
+
+</section>
+<section id="capas-completamente-conectadas" class="slide level3">
+<h3>Capas completamente conectadas</h3>
+<p><img data-src="img/fcnn.png" width="800" /></p>
+</section>
+<section id="perceptron" class="slide level3">
+<h3>Perceptron</h3>
+<p><img data-src="img/perceptron.jpg" width="800" />:</p>
+</section>
+<section id="backpropagation" class="slide level3">
+<h3>Backpropagation</h3>
+<p><img data-src="img/backprop.jpg" width="1000" /></p>
+</section>
+<section id="típicas-funciones-de-activación-relu" class="slide level3">
+<h3>Típicas funciones de activación: Relu</h3>
+<p><span class="math display">\[
+f(x) = \max\{x, 0\}
+\]</span></p>
+<p><img data-src="_codebraid/2e97003b72ce29d3/python3--002-01.png" /></p>
+</section>
+<section id="típicas-funciones-de-activación-tanh" class="slide level3">
+<h3>Típicas funciones de activación: Tanh</h3>
+<p><span class="math display">\[
+f(x)={\cfrac {e^{x}-e^{-x}}{e^{x}+e^{-x}}}
+\]</span></p>
+<p><img data-src="_codebraid/2e97003b72ce29d3/python3--003-01.png" /></p>
+</section>
+<section id="típicas-funciones-de-activación-sigmoide" class="slide level3">
+<h3>Típicas funciones de activación: Sigmoide</h3>
+<p><span class="math display">\[
+f(x) = \frac{1}{1+e^{-x}}
+\]</span></p>
+<p><img data-src="_codebraid/2e97003b72ce29d3/python3--004-01.png" /></p>
+</section>
+<section id="epoch-vs-batch-vs-iteration" class="slide level3">
+<h3>Epoch vs Batch vs Iteration</h3>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><strong>Epoch</strong></p>
+<ul>
+<li class="fragment">Todo el dataset hace una pasada (A y A)</li>
+<li class="fragment">El dataset pasa una sola vez</li>
+<li class="fragment">Se pueden necesitar muchos Epochs</li>
+</ul>
+</div><div class="column" style="width:30%;">
+<p><strong>Batch</strong></p>
+<ul>
+<li class="fragment">Todo el dataset no entre de una.</li>
+<li class="fragment">Se divide en distintos batches.</li>
+<li class="fragment">Pueden cambiar de epoch a epoch</li>
+</ul>
+</div><div class="column" style="width:30%;">
+<p><strong>Iteration</strong></p>
+<ul>
+<li class="fragment">Es la cantidad de batches necesarios para completar un epoch.</li>
+</ul>
+</div>
+</div>
+</section></section>
+<section>
+<section id="imágenes-como-matrices" class="title-slide slide level2">
+<h2>Imágenes como matrices</h2>
+<ul>
+<li class="fragment">Necesitamos representar imágenes en computadora</li>
+<li class="fragment">La representación tiene que ser entendible por una computadora: números.</li>
+<li class="fragment">Idea: partir imágenes en pixels y asignarle a cada pixel un color.</li>
+<li class="fragment">Idea: cada color se representa de forma numérica.</li>
+</ul>
+</section>
+<section id="red---green---blue-rgb" class="slide level3">
+<h3>Red - Green - Blue (RGB)</h3>
+<ul>
+<li class="fragment">Todos los colores se pueden representar como una mezcla de rojo, verde y azul.</li>
+<li class="fragment">Normalizamos la cantidad de de cada color del 0 al 100% (o del 0 al 1).</li>
+<li class="fragment">Representar decimales en una computadora es difícil, enteros es más fácil.</li>
+<li class="fragment">Con 8 bits tenemos 256 niveles. Idea: RGB cada uno ocupa 8 bits y varían en <span class="math inline">\([0, 255)\)</span></li>
+</ul>
+</section>
+<section id="pixels-como-entrada-de-matrices" class="slide level3">
+<h3>Pixels como entrada de matrices</h3>
+<ul>
+<li class="fragment">Para una imagen en blanco y negro, usamos una sola matriz.</li>
+<li class="fragment">Cada pixel representa la intensidad entre blanco y negro.</li>
+<li class="fragment">Para imágenes a color, usamos 3 matrices del mismo tamaño, una para cada canal: RGB.</li>
+</ul>
+</section>
+<section id="ejemplo" class="slide level3">
+<h3>Ejemplo</h3>
+<p><img data-src="img/image_matrix.jpg" width="1000" /></p>
+</section></section>
+<section>
+<section id="redes-convolucionales" class="title-slide slide level2">
+<h2>Redes convolucionales</h2>
+<ul>
+<li class="fragment">En general las redes convolucionales son arquitecturas profundas con algunas capas especiales.</li>
+<li class="fragment">En particular, el nombre viene del uso de capas convolucionales (más en breves)</li>
+<li class="fragment">Menos libertad que una red “fully-connected”, pero mejores en la práctica.</li>
+</ul>
+</section>
+<section id="capa-convolucional" class="slide level3">
+<h3>Capa convolucional</h3>
+<ul>
+<li class="fragment">Creamos un bloque de pesos mucho más chico que la imagen original.</li>
+<li class="fragment">Calculamos la multiplicación de ese bloque y una parte de la imagen.</li>
+<li class="fragment">Vamos moviendo el bloque a través de la matriz. Se usan muchos menos pesos.</li>
+</ul>
+</section>
+<section id="capa-convolucional-1" class="slide level3">
+<h3>Capa convolucional</h3>
+<p><img data-src="img/conv.png" width="800" /></p>
+</section>
+<section id="capa-convolucional-2" class="slide level3">
+<h3>Capa convolucional</h3>
+<div class="columns">
+<div class="column">
+<p><img data-src="img/dog.png" width="500" /></p>
+</div><div class="column">
+<ul>
+<li class="fragment">Diferencia entre el pixel original y su pixel a la izquierda.</li>
+<li class="fragment">Imágenes tienen tamaño 280 x 320 pixels.</li>
+<li class="fragment">Usando convoluciones require: <span class="math inline">\(319 × 280 × 3 = 267960\)</span> operaciones</li>
+<li class="fragment">Usando “fully-connected”: 320 × 280 × 319 × 280</li>
+<li class="fragment">4 billones de veces más eficiente.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="capa-pooling" class="slide level3">
+<h3>Capa “pooling”</h3>
+<p><img data-src="img/pooling.png" width="1000" /></p>
+</section>
+<section id="capa-pooling-1" class="slide level3">
+<h3>Capa “pooling”</h3>
+<ul>
+<li class="fragment">Remplaza una vecindad con una estadística de la vecindad</li>
+<li class="fragment">Permite reducir la dimensionalidad de la imagen.</li>
+<li class="fragment">Equivalente a tener una “prior bayesiana”</li>
+<li class="fragment">Pooling hace la activación “invariante” a pequeñas traslaciones</li>
+</ul>
+</section>
+<section id="capa-pooling-2" class="slide level3">
+<h3>Capa “pooling”</h3>
+<p><img data-src="img/pooling_invariant.png" width="800" /></p>
+</section>
+<section id="batch-normalization" class="slide level3">
+<h3>Batch Normalization</h3>
+<div class="columns">
+<div class="column">
+<ul>
+<li class="fragment">Los mini-batches cambian de distribución</li>
+<li class="fragment">Esto complica el aprendizaje (descenso por gradientes)</li>
+<li class="fragment">Idea, normalizar después de cada convolución, antes de activación</li>
+</ul>
+</div><div class="column">
+<p><img data-src="img/bn.png" width="500" /></p>
+</div>
+</div>
+</section>
+<section id="global-pooling-fc-softmax" class="slide level3">
+<h3>Global Pooling + FC + Softmax</h3>
+<ul>
+<li class="fragment">Última capa para clasificación de imágenes</li>
+<li class="fragment">Global pooling toma todo el promedio por canal</li>
+<li class="fragment">Luego, FC del tamaño de la cantidad de clases</li>
+<li class="fragment">Salida es un vector igual a la cantidad de clases.</li>
+<li class="fragment">Función softmax para calcular probabilidad por clase.</li>
+</ul>
+</section>
+<section id="resnets" class="slide level3">
+<h3>Resnets</h3>
+<p><img data-src="img/resblock.png" width="500" /></p>
+</section>
+<section id="resnets-1" class="slide level3">
+<h3>Resnets</h3>
+<p><img data-src="img/reslist.png" width="1000" /></p>
+</section></section>
+<section id="graphics-processing-units-gpu" class="title-slide slide level2">
+<h2>Graphics Processing Units (GPU)</h2>
+<ul>
+<li class="fragment">Son circuitos diseñados para procesar imagenes de forma rápida</li>
+<li class="fragment">Se originaron en la industria de los videojuegos en los 70’</li>
+<li class="fragment">Permiten realizar muchas operaciones similares (aritmética) en paralelo.</li>
+<li class="fragment">NVIDIA es el fabricante más conocido.</li>
+</ul>
+</section>
+
+<section id="gpus-y-aprendizaje-profundo" class="title-slide slide level2">
+<h2>GPUs y aprendizaje profundo</h2>
+<ul>
+<li class="fragment">La operación de convolución es fácilmente paralelizable</li>
+<li class="fragment">Esto es xq usa los mismos parametros para toda la imágen.</li>
+</ul>
+</section>
+
+<section id="referencias" class="title-slide slide level2">
+<h2>Referencias</h2>
+<ul>
+<li class="fragment"><a href="https://www.deeplearningbook.org/">DeepLearningBook</a></li>
+<li class="fragment"><a href="https://cs231n.github.io/convolutional-networks/">Curso Stanford</a></li>
+<li class="fragment"><a href="https://arxiv.org/pdf/1502.03167.pdf">Batch Normalization</a></li>
+<li class="fragment"><a href="https://arxiv.org/pdf/1512.03385.pdf">Resnets</a></li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4//dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:true});</script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^4//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/math/math.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+	pdfSeparateFragments: false,
+
+        <!-- // Help the user learn the controls by providing hints, for example by -->
+        <!-- // bouncing the down arrow when they first encounter a vertical slide -->
+        <!-- controlsTutorial: true, -->
+
+        <!-- // Determines where controls appear, "edges" or "bottom-right" -->
+        <!-- controlsLayout: 'bottom-right', -->
+
+        <!-- // Visibility rule for backwards navigation arrows; "faded", "hidden" -->
+        <!-- // or "visible" -->
+        <!-- controlsBackArrows: 'faded', -->
+
+        <!-- // Display a presentation progress bar -->
+        <!-- progress: true, -->
+
+        <!-- // Display the page number of the current slide -->
+        slideNumber: true,
+
+        <!-- // 'all', 'print', or 'speaker' -->
+        <!-- showSlideNumber: 'all', -->
+
+        <!-- // Add the current slide number to the URL hash so that reloading the -->
+        <!-- // page/copying the URL will return you to the same slide -->
+        <!-- hash: false, -->
+
+        <!-- // Start with 1 for the hash rather than 0 -->
+        <!-- hashOneBasedIndex: false, -->
+
+        <!-- // Flags if we should monitor the hash and change slides accordingly -->
+        <!-- respondToHashChanges: true, -->
+
+        <!-- // Push each slide change to the browser history -->
+        <!-- history: false, -->
+
+        <!-- // Enable keyboard shortcuts for navigation -->
+        <!-- keyboard: true, -->
+
+        <!-- // Enable the slide overview mode -->
+        <!-- overview: true, -->
+
+        <!-- // Disables the default reveal.js slide layout (scaling and centering) -->
+        <!-- // so that you can use custom CSS layout -->
+        <!-- disableLayout: false, -->
+
+        <!-- // Vertical centering of slides -->
+        <!-- center: true, -->
+
+        <!-- // Enables touch navigation on devices with touch input -->
+        <!-- touch: true, -->
+
+        <!-- // Loop the presentation -->
+        <!-- loop: false, -->
+
+        <!-- // Change the presentation direction to be RTL -->
+        <!-- rtl: false, -->
+
+        <!-- // see https://revealjs.com/vertical-slides/#navigation-mode -->
+        <!-- navigationMode: 'default', -->
+
+        <!-- // Randomizes the order of slides each time the presentation loads -->
+        <!-- shuffle: false, -->
+
+        <!-- // Turns fragments on and off globally -->
+        <!-- fragments: true, -->
+
+        <!-- // Flags whether to include the current fragment in the URL, -->
+        <!-- // so that reloading brings you to the same fragment position -->
+        <!-- fragmentInURL: true, -->
+
+        <!-- // Flags if the presentation is running in an embedded mode, -->
+        <!-- // i.e. contained within a limited portion of the screen -->
+        <!-- embedded: false, -->
+
+        <!-- // Flags if we should show a help overlay when the questionmark -->
+        <!-- // key is pressed -->
+        <!-- help: true, -->
+
+        <!-- // Flags if it should be possible to pause the presentation (blackout) -->
+        <!-- pause: true, -->
+
+        <!-- // Flags if speaker notes should be visible to all viewers -->
+        <!-- showNotes: false, -->
+
+        <!-- // Global override for autoplaying embedded media (null/true/false) -->
+        <!-- autoPlayMedia: null, -->
+
+        <!-- // Global override for preloading lazy-loaded iframes (null/true/false) -->
+        <!-- preloadIframes: null, -->
+
+        <!-- // Number of milliseconds between automatically proceeding to the -->
+        <!-- // next slide, disabled when set to 0, this value can be overwritten -->
+        <!-- // by using a data-autoslide attribute on your slides -->
+        <!-- autoSlide: 0, -->
+
+        <!-- // Stop auto-sliding after user input -->
+        <!-- autoSlideStoppable: true, -->
+
+        <!-- // Use this method for navigation when auto-sliding -->
+        <!-- autoSlideMethod: null, -->
+
+        <!-- // Specify the average time in seconds that you think you will spend -->
+        <!-- // presenting each slide. This is used to show a pacing timer in the -->
+        <!-- // speaker view -->
+        <!-- defaultTiming: null, -->
+
+        <!-- // Enable slide navigation via mouse wheel -->
+        <!-- mouseWheel: false, -->
+
+        <!-- // The display mode that will be used to show slides -->
+        <!-- display: 'block', -->
+
+        <!-- // Hide cursor if inactive -->
+        <!-- hideInactiveCursor: true, -->
+
+        <!-- // Time before the cursor is hidden (in ms) -->
+        <!-- hideCursorTime: 5000, -->
+
+        <!-- // Opens links in an iframe preview overlay -->
+        <!-- previewLinks: false, -->
+
+        <!-- // Transition style (none/fade/slide/convex/concave/zoom) -->
+        <!-- transition: 'slide', -->
+
+        <!-- // Transition speed (default/fast/slow) -->
+        <!-- transitionSpeed: 'default', -->
+
+        <!-- // Transition style for full page slide backgrounds -->
+        <!-- // (none/fade/slide/convex/concave/zoom) -->
+        <!-- backgroundTransition: 'fade', -->
+
+        <!-- // Number of slides away from the current that are visible -->
+        <!-- viewDistance: 3, -->
+
+        <!-- // Number of slides away from the current that are visible on mobile -->
+        <!-- // devices. It is advisable to set this to a lower number than -->
+        <!-- // viewDistance in order to save resources. -->
+        <!-- mobileViewDistance: 2, -->
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: '100%',
+
+        height: '100%',
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+	    tex: {
+		Macros: {
+		RR:  "{\\bf R}",
+		},
+	    },
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom,
+        ]
+      });
+    </script>
+    </body>
+</html>

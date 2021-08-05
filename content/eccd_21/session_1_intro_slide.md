@@ -43,7 +43,7 @@ date: Julio - Agosto, 2021
 :::: column
 * Ingeniero en Investigación y Desarrollo
 * 2020 - 2021
-* Posibles nuevos modelos de negocio usnado SOA.
+* Posibles nuevos modelos de negocio usando SOA.
 * Aplicación a mercados de energía
 ::::
 :::
@@ -77,10 +77,10 @@ date: Julio - Agosto, 2021
 ```
 ::::
 :::: column
-* Super(mercado) ROJO tiene mejores precios debio a volumen.
-* Super VERDE se ve amenzadao. Clientela leal disminuye.
+* Super(mercado) ROJO tiene mejores precios debido a volumen.
+* Super VERDE se ve amenazado. Clientela leal disminuye.
 * Super VERDE quiere mejorar eficiencia. Puede usar sus datos?
-* Ventas son todas electronicas e inventario también.
+* Ventas son todas electrónicas e inventario también.
 ::::
 :::
 
@@ -111,10 +111,10 @@ date: Julio - Agosto, 2021
 </div>
 ```
 
-* Producto artensanl, hecho por vecino. 
+* Producto artesanal, hecho por vecino. 
 * No tiene un precio por defecto
 * Rango muy grande para variación de precios. 
-* Más dificil de precificar.
+* Más difícil de precificar.
 
 ::::
 :::
@@ -187,8 +187,8 @@ date: Julio - Agosto, 2021
 :::: column
 * Delivery en 48h por 79$ al año.
 * No existía un servicio similar.
-* Gran desafío logistico (y de ML).
-* Se estima que puede llegar a peder 1bn al año. 
+* Gran desafío logístico (y de ML).
+* Se estima que puede llegar a perder 1bn al año. 
 * Revoluciono como compramos online (18bn a 900bn).
 ::::
 :::
@@ -217,9 +217,9 @@ Elon Musk
 :::: column
 
 * Creado por Microsoft Research en 2016 (@TayandYou)
-* El objectivo era aprender a hablar a partir de tweets.
+* El objetivo era aprender a hablar a partir de tweets.
 * Comenzó muy bien, pero le enseñaron a .
-* Trolls le empezaron a enseñar frases politicamente incorrectas.
+* Trolls le empezaron a enseñar frases políticamente incorrectas.
 * Fue dado de baja tan solo 16 horas luego de su aparición.
 
 ::::
@@ -242,17 +242,17 @@ Elon Musk
 
 ### Github Copilot
 
-* Apendió a programar de una gran base de datos
+* Aprendió a programar de una gran base de datos
 * Sugiere a los programadores código de forma automática.
 * Potencial para revolucionar la industria
-* Si llega de `leakear` información confidencial, puede ser una catastrofe.
+* Si llega de `leakear` información confidencial, puede ser una catástrofe.
 * Quién sera responsable del código escrito por ellos?
 
 ## Cronograma: Clase 1 (31 / 07)
 
 ### Sesión 1:
 
-* Introdución
+* Introducción
 * Cronograma
 * Metodología y Evaluación
 
@@ -266,14 +266,13 @@ Elon Musk
 
 ## Cronograma: Clase 2 (02 / 08)
 
-### Sesión 4: Automatización de Precios
+### Sesión 4: Recomendación de Precios
 * Motivación (alternativas a ML)
 * Descripción formal del problema
 * Resolución sin ML
 * XGBoost y aplicaciones
+
 ###  Sesión 5: Predicción de la demanda
-* Métodos tradicionales: AR, MA, ARIMA
-* Métodos para demanda esporádica
 * Series univariadas como datos tabulares (extración de atributos)
 * Aplicación de XGBoost al problema de demand forecasting.
 
@@ -281,7 +280,7 @@ Elon Musk
 ## Cronograma: Clase 3 (04 / 08)
 
 
-### Sesión 6: Optimización de Preciosdan
+### Sesión 6: Optimización de Precios
 * Motivación 
 * Descripción formal del problema
 * Diferencias entre predicción de la demanda y precificación.
@@ -291,18 +290,18 @@ Elon Musk
 ### Sesión 7: Presentación del Proyecto Final
 * Descripción del caso de estudio.
 * Explicación de la propuesta
-* Creación de groups
+* Creación de grupos
 
 
 ## Cronograma: Clase 4 (07 / 08)
 
-### Sesión 8: Clasificación de Imagenes (Parte I)
+### Sesión 8: Clasificación de Imágenes (Parte I)
 
 * Descripción del problema
 * Arquitecturas tradicionales (CNN)
 * GPUs: qué y por qué
 
-###  Sesión 9: Clasificación de Imagenes (Parte II)
+###  Sesión 9: Clasificación de Imágenes (Parte II)
 * Transferencia de Conocimiento (Transfer Learning)
 * Resnets e ImageNets
 * Pytorch
@@ -315,20 +314,14 @@ Elon Musk
 
 ## Evaluación 
 
-* Deberes: 40% 
+* Deberes: 40% (mínimo 50%)
 	* Problemas de código sobre los temas trabajados en clase
 	* Tiempo hasta antes de la siguiente clase para entregarlos.
 	* Individual o grupal
-* Proyecto final: 60%
+* Proyecto final: 60% (mínimo 50%)
 	* Resolución de una pre-venta usando ML
 	* Código + presentación "al cliente"
 	* Grupal
 	* Entrega 1 semana luego de terminadas las clases.
 
 
-<!-- ## Conocimentos Asumidos -->
-
-<!-- * Cálculo y Algebra Lineal: Diferenciación, Manipulación de Matrices -->
-<!-- * Conceptos básicos de optimización -->
-<!-- * Conocimientos intermedios de programación en Python: pandas, matplotlib, sklearn -->
-<!-- * Conceptos básicos de ML: train/test, cross validation, encodings, normalización. -->

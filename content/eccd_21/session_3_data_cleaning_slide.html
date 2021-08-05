@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Diego Kiedanski">
-  <title>Dealing with real datasets</title>
+  <title>Lidiando con datasets reales</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -90,26 +90,25 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Dealing with real datasets</h1>
+  <h1 class="title">Lidiando con datasets reales</h1>
   <p class="author">Diego Kiedanski</p>
   <p class="date">2nd August 2021</p>
 </section>
 
 <section>
-<section id="how-real-datasets-are-born" class="title-slide slide level2">
-<h2>How real datasets are born</h2>
+<section id="como-nacen-los-datasets-reales" class="title-slide slide level2">
+<h2>Como nacen los datasets reales</h2>
 <div class="columns">
 <div class="column">
 <ul>
-<li class="fragment">Fill a form</li>
-<li class="fragment">Form is ambiguous</li>
-<li class="fragment">Form allows for free-text input</li>
-<li class="fragment">Originally intented only for humans.</li>
-<li class="fragment">Possible confusions:
+<li class="fragment">Rellena un formulario</li>
+<li class="fragment">La forma es ambigua</li>
+<li class="fragment">El formulario permite la entrada de texto libre</li>
+<li class="fragment">Originalmente diseñado solo para humanos.</li>
+<li class="fragment">Posibles confusiones:
 <ul>
-<li class="fragment">Lastname includes one or two lastnames?</li>
-<li class="fragment">If no phone, cellphone in phone cell? (Is mandatory)</li>
-<li class="fragment">Are we complaining about personnel? a specific product?</li>
+<li class="fragment">¿El apellido incluye uno o dos apellidos?</li>
+<li class="fragment">Si no tiene teléfono, ¿celular en celular? (Es obligatorio)</li>
 </ul></li>
 </ul>
 </div><div class="column">
@@ -119,38 +118,40 @@
 </section>
 <section id="form-cont." class="slide level3">
 <h3>Form cont.</h3>
-<p>Imagine what we need to work with someone’s full name.</p>
+<p>Imagínese si tuviésemos que trabajar con el nombre completo.</p>
 <ul>
-<li class="fragment">Ana María Gonzales (2 names, 1 lastname)</li>
-<li class="fragment">Lincoln Lincoln Smith (1 name, 2 lastnames)</li>
-<li class="fragment">Dwayne “The Rock” Johnson (1 name, 1 nickname, 1 lastname)</li>
-<li class="fragment">Dr. Md. Golam Mostafa Khan (1 or 2 titles?, 1 or 2 names?)</li>
-<li class="fragment"><strong>Explicit is better than implicit</strong></li>
-</ul>
-</section>
-<section id="uiux-validation" class="slide level3">
-<h3>UI/UX validation</h3>
-<p>In a sucucessfull project:</p>
-<ul>
-<li class="fragment">We help the client understand how to clean their data</li>
-<li class="fragment">We provide them with tools to sanitize their database</li>
-<li class="fragment">We help them improve their data input system</li>
-<li class="fragment">We iterate until the workflow reaches a desirable state.</li>
+<li class="fragment">Ana María Gonzales (2 nombres, 1 apellido)</li>
+<li class="fragment">Lincoln Lincoln Smith (1 nombre, 2 apellidos)</li>
+<li class="fragment">Dwayne “The Rock” Johnson (1 nombre, 1 apodo, 1 apellido)</li>
+<li class="fragment">Dr. Md. Golam Mostafa Khan (1 o 2 títulos?, 1 o 2 nombres?)</li>
+<li class="fragment"><strong>Explicito es mejor que implícito</strong></li>
 </ul>
 </section></section>
-<section>
-<section id="basic-string-cleaning-techniques" class="title-slide slide level2">
-<h2>Basic string cleaning techniques</h2>
-<p>Consider the following <strong>DIFFERENT</strong> strings:</p>
+<section id="validación-uiux" class="title-slide slide level2">
+<h2>Validación UI/UX</h2>
+<p>En un proyecto exitoso:</p>
 <ul>
-<li class="fragment">“Hello World!”</li>
-<li class="fragment">“hello world”</li>
-<li class="fragment">“Hello world”</li>
+<li class="fragment">Ayudamos al cliente a entender cómo limpiar sus datos.</li>
+<li class="fragment">Les proporcionamos herramientas para desinfectar su base de datos</li>
+<li class="fragment">Les ayudamos a mejorar su sistema de entrada de datos</li>
+<li class="fragment">Repetimos hasta que el flujo de trabajo alcanza un estado deseable.</li>
+</ul>
+</section>
+
+<section>
+<section id="técnicas-básicas-de-limpieza-de-cuerdas" class="title-slide slide level2">
+<h2>Técnicas básicas de limpieza de cuerdas</h2>
+<p>Considere las siguientes cadenas <strong>DIFERENTES</strong>:</p>
+<ul>
+<li class="fragment">“¡Hola Mundo!”</li>
+<li class="fragment">“Hola Mundo”</li>
+<li class="fragment">“Hola Mundo”</li>
+<li class="fragment">” Hola Mundo ”</li>
 <li class="fragment">” hello World ”</li>
 </ul>
 </section>
-<section id="strip-and-lowercase" class="slide level3">
-<h3>Strip and lowercase</h3>
+<section id="strip-y-minúscula" class="slide level3">
+<h3>Strip y minúscula</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">&quot;  hello World &quot;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(s)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  hello World</span>
@@ -159,9 +160,9 @@
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s.strip().lower()</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;hello world&#39;</span></span></code></pre></div>
 </section>
-<section id="splitting-by-character" class="slide level3">
-<h3>Splitting by character</h3>
-<p>A very powerful feature is to split a string in a given character</p>
+<section id="separando-por-carácter" class="slide level3">
+<h3>Separando por carácter</h3>
+<p>Una herramienta muy poderosa es poder dividir un string en un carácter.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s  <span class="op">=</span> <span class="st">&quot;green - red - orange - black&quot;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;green - red - orange - black&#39;</span></span>
@@ -170,8 +171,8 @@
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [x.strip() <span class="cf">for</span> x <span class="kw">in</span> s.split(<span class="st">&quot;-&quot;</span>)]</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;green&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;orange&#39;</span>, <span class="st">&#39;black&#39;</span>]</span></code></pre></div>
 </section>
-<section id="switching-characters" class="slide level3">
-<h3>Switching characters</h3>
+<section id="remplazando-caracteres" class="slide level3">
+<h3>Remplazando caracteres</h3>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">&quot;10,005.32&quot;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;10,005.32&#39;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s.replace(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;x&quot;</span>)</span>
@@ -182,16 +183,16 @@
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;10.005,32&#39;</span></span></code></pre></div>
 </section></section>
 <section>
-<section id="regular-expressions" class="title-slide slide level2">
-<h2>Regular Expressions</h2>
+<section id="expresiones-regulares" class="title-slide slide level2">
+<h2>Expresiones Regulares</h2>
 <ul>
-<li class="fragment">Very powerful tool for pattern matching in text</li>
-<li class="fragment">RE can be tricky, and often cause more problems than they produce.</li>
-<li class="fragment">Nice tool to have at your disposal.</li>
+<li class="fragment">Herramienta muy poderosa para hacer coincidir patrones en texto</li>
+<li class="fragment">RE puede ser complicado y, a menudo, causa más problemas de los que produce.</li>
+<li class="fragment">Buena herramienta para tener a tu disposición.</li>
 </ul>
 </section>
-<section id="regex-basics-in-python" class="slide level3">
-<h3>Regex Basics in Python</h3>
+<section id="expresiones-regulares-básicas-en-python" class="slide level3">
+<h3>Expresiones regulares básicas en Python</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> re</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">&quot;En en el mundo hay 123111943, mi cel es 091321456,</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">el de mi sis 095012012 y ayer fue 04/05/2032&quot;</span></span>
@@ -199,8 +200,8 @@
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> reg.findall(s)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;091321456&#39;</span>, <span class="st">&#39;095012012&#39;</span>]</span></code></pre></div>
 </section>
-<section id="getting-a-single-cellphone-carrier-numbers" class="slide level3">
-<h3>Getting a single cellphone carrier numbers</h3>
+<section id="obtener-los-teléfonos-de-un-solo-proveedor" class="slide level3">
+<h3>Obtener los teléfonos de un solo proveedor</h3>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> re</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">&quot;En en el mundo hay 123111943, mi cel es 091321456, </span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">el de mi sis 095012012 y ayer fue 04/05/2032&quot;</span></span>
@@ -208,8 +209,8 @@
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> reg.findall(s)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;095012012&#39;</span>]</span></code></pre></div>
 </section>
-<section id="getting-the-day-of-a-date" class="slide level3">
-<h3>Getting the day of a date</h3>
+<section id="obtener-el-día-de-una-fecha" class="slide level3">
+<h3>Obtener el día de una fecha</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> re</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;En en el mundo hay 123111943, mi cel es 091321456,</span></span>
@@ -219,11 +220,11 @@
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;04&#39;</span>]</span></code></pre></div>
 </section></section>
 <section>
-<section id="distance-between-strings" class="title-slide slide level2">
-<h2>Distance between strings</h2>
+<section id="distancia-entre-strings" class="title-slide slide level2">
+<h2>Distancia entre strings</h2>
 <ul>
-<li class="fragment">We know of distance between vectors: <span class="math inline">\(d([0, 1], [2, 3]) = \sqrt{8}\)</span></li>
-<li class="fragment">We also define distance between strings: Levenshtein or edit. <span class="math display">\[
+<li class="fragment">Sabemos la distancia entre vectores: <span class="math inline">\(d([0, 1], [2, 3]) = \sqrt{8}\)</span></li>
+<li class="fragment">También podemos definir distancia entre strings: Levenshtein o edición. <span class="math display">\[
 \displaystyle \qquad \operatorname {lev} (a,b)={
 \begin{cases}|a|&amp;{\text{ if }}|b|=0,\\
 |b|&amp;{\text{ if }}|a|=0, \\
@@ -237,18 +238,18 @@
 \]</span></li>
 </ul>
 </section>
-<section id="example" class="slide level3">
-<h3>Example</h3>
-<p>The distance between <code>kitten</code> and <code>sitting</code> is 3.</p>
+<section id="ejemplo" class="slide level3">
+<h3>Ejemplo</h3>
+<p>Ejemplo de distancia entre <code>kitten</code> y <code>sitting</code> es 3.</p>
 <ul>
-<li class="fragment"><strong>K</strong>itten -&gt; <strong>S</strong>itten (changing k for s)</li>
-<li class="fragment">Sitten -&gt; Sitten<strong>g</strong> (inserting g at the end)</li>
-<li class="fragment">Sitt<strong>e</strong>ng -&gt; Sitt<strong>i</strong>ng (changing e for i)</li>
+<li class="fragment"><strong>K</strong>itten -&gt; <strong>S</strong>itten (cambiando k por s)</li>
+<li class="fragment">Sitten -&gt; Sitten<strong>g</strong> (insertando g al final)</li>
+<li class="fragment">Sitt<strong>e</strong>ng -&gt; Sitt<strong>i</strong>ng (cambiando e por i)</li>
 </ul>
 </section>
-<section id="possible-application" class="slide level3">
-<h3>Possible application</h3>
-<p>We need to <code>LabelEncode</code> the following strings:</p>
+<section id="posible-aplicación" class="slide level3">
+<h3>Posible aplicación</h3>
+<p>Tenemos que <code>LabelEncode</code> los siguientes strings:</p>
 <ul>
 <li class="fragment">“red aple”</li>
 <li class="fragment">“apple, shiny”</li>
@@ -260,21 +261,20 @@
 <section id="section" class="slide level3">
 <h3></h3>
 <ul>
-<li class="fragment">We would like to group them by fruit before encoding.</li>
-<li class="fragment">Some fruits are misspelled and have additional adjectives</li>
-<li class="fragment">Idea: apply a clustering mechanisms with a good metrics (not euclidean)</li>
-<li class="fragment">Edit distance might work, might have a hard time with <code>banana/anana</code></li>
-<li class="fragment">Maybe edit distance on each token?</li>
+<li class="fragment">Nos gustaría agruparlos por fruta antes de codificar.</li>
+<li class="fragment">Algunas frutas están mal escritas y tienen adjetivos adicionales</li>
+<li class="fragment">Idea: aplicar un mecanismo de agrupamiento con una buena métrica (no euclidiana)</li>
+<li class="fragment">Distancia Levenshtein podría funcionar, pero podría tener dificultades con <code>banana / anana</code></li>
 </ul>
 </section></section>
 <section id="openrefine" class="title-slide slide level2">
 <h2>OpenRefine</h2>
 <ul>
-<li class="fragment">Data cleaning is never easy</li>
-<li class="fragment">Even in python can get cumbersome fast</li>
-<li class="fragment">Depending on the application, using a specific tool might help</li>
-<li class="fragment">OpenRefine helps with that problem</li>
-<li class="fragment">DEMO</li>
+<li class="fragment">La limpieza de datos nunca es fácil</li>
+<li class="fragment">Incluso en Python puede volverse engorroso rápidamente</li>
+<li class="fragment">Dependiendo de la aplicación, el uso de una herramienta específica puede ayudar</li>
+<li class="fragment">OpenRefine ayuda con ese problema</li>
+<li class="fragment"><a href="https://openrefine.org">Link</a></li>
 </ul>
 </section>
     </div>
@@ -297,6 +297,8 @@
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
+	pdfSeparateFragments: false,
 
         <!-- // Help the user learn the controls by providing hints, for example by -->
         <!-- // bouncing the down arrow when they first encounter a vertical slide -->
@@ -469,7 +471,7 @@
           RevealMath,
           RevealNotes,
           RevealSearch,
-          RevealZoom
+          RevealZoom,
         ]
       });
     </script>

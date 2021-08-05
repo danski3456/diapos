@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Diego Kiedanski">
+  <title>Predicción de la demanda</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../utils/style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Predicción de la demanda</h1>
+  <p class="author">Diego Kiedanski</p>
+  <p class="date">2 de Agosto 2021</p>
+</section>
+
+<section id="introduction" class="title-slide slide level2">
+<h2>Introduction</h2>
+<ul>
+<li class="fragment">El problema de predicción en series temporales es clasico.</li>
+<li class="fragment">Generalemente se resuelve con métodos especializados.</li>
+<li class="fragment">Fuerte componente estadística que garantiza cotas.</li>
+<li class="fragment">Nuevos métodos puramente basados en ML pueden alcanzar mejores resultados.</li>
+</ul>
+</section>
+
+<section>
+<section id="examplo-predecir-ocupación-en-parking" class="title-slide slide level2">
+<h2>Examplo: Predecir Ocupación en Parking</h2>
+
+</section>
+<section id="un-subconjunto-de-los-datos" class="slide level3">
+<h3>Un subconjunto de los datos</h3>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Ocupación
+</th>
+<th>
+Nevo?
+</th>
+</tr>
+<tr>
+<th>
+Fecha
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+2021-04-01
+</th>
+<td>
+0.1
+</td>
+<td>
+False
+</td>
+</tr>
+<tr>
+<th>
+2021-04-02
+</th>
+<td>
+0.8
+</td>
+<td>
+True
+</td>
+</tr>
+<tr>
+<th>
+2021-04-03
+</th>
+<td>
+0.6
+</td>
+<td>
+False
+</td>
+</tr>
+<tr>
+<th>
+2021-04-04
+</th>
+<td>
+0.8
+</td>
+<td>
+True
+</td>
+</tr>
+<tr>
+<th>
+2021-04-05
+</th>
+<td>
+0.1
+</td>
+<td>
+False
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="visualización-como-serie-temporal" class="slide level3">
+<h3>Visualización como serie temporal</h3>
+<p><img data-src="_codebraid/9180f846ca3c44a8/python3--003-01.png" /></p>
+</section></section>
+<section>
+<section id="de-serie-temporal-a-dato-tabular" class="title-slide slide level2">
+<h2>De serie temporal a dato tabular</h2>
+
+</section>
+<section id="como-podemos-codificar-una-fecha" class="slide level3">
+<h3>Como podemos codificar una fecha?</h3>
+<div class="columns">
+<div class="column">
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Fecha</th>
+<th>Encoding A</th>
+<th>Encoding B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>25 de Agosto 16:05</td>
+<td> 0</td>
+<td> 0</td>
+</tr>
+<tr class="even">
+<td>25 de Agosto 16:11</td>
+<td> 1</td>
+<td> 6</td>
+</tr>
+<tr class="odd">
+<td>26 de Agosto 16:06</td>
+<td> 2</td>
+<td> 86401</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column">
+<ul>
+<li class="fragment">Encoding A: fechas diferentes a números diferentes.</li>
+<li class="fragment">Encoding B: calculamos frecuencia mínima.
+<ul>
+<li class="fragment">La fecha más antigua tiene valor 0</li>
+<li class="fragment">Fechas siguientes tienen valor <span class="math inline">\((f_i - f_0) * \text{freq}\)</span></li>
+</ul></li>
+<li class="fragment">Ambas no calculan particularidades de la fecha.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="separando-la-fecha-en-atributos" class="slide level3">
+<h3>Separando la fecha en atributos</h3>
+<div class="columns">
+<div class="column">
+<blockquote>
+<p>25 de Agosto 2021, 16:05</p>
+</blockquote>
+</div><div class="column">
+<ul>
+<li class="fragment">Atributo Día: 25 (<span class="math inline">\([1, 31]\)</span>)</li>
+<li class="fragment">Atributo Mes: 08 (<span class="math inline">\([1, 12]\)</span>)</li>
+<li class="fragment">Atributo Año: 2021</li>
+<li class="fragment">Atributo Hora: 16 (<span class="math inline">\([0, 23]\)</span>)</li>
+<li class="fragment">Atributo Minuto: 05 (<span class="math inline">\([0, 59]\)</span>)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="independencia-de-filas" class="slide level3">
+<h3>Independencia de filas</h3>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Día</th>
+<th> Mes</th>
+<th> Año</th>
+<th> Hora</th>
+<th> Minuto</th>
+<th> Ocupación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>25</td>
+<td> 08</td>
+<td> 2021</td>
+<td> 16</td>
+<td> 05</td>
+<td> 0.6</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td> 08</td>
+<td> 2021</td>
+<td> 16</td>
+<td> 10</td>
+<td> 0.5</td>
+</tr>
+<tr class="odd">
+<td>30</td>
+<td> 10</td>
+<td> 2020</td>
+<td> 16</td>
+<td> 05</td>
+<td> 0.56</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment">Algoritmos tabulares tratan filas como independientes.</li>
+<li class="fragment">No se aprenden relaciones con el pasado.</li>
+</ul>
+</section></section>
+<section>
+<section id="lags" class="title-slide slide level2">
+<h2>Lags</h2>
+<ul>
+<li class="fragment">Como vimos, las filas son independientes.</li>
+<li class="fragment">El actual modelo tabular no puede relacionar datos historicos.</li>
+<li class="fragment">Idea: agregar features con información del pasado en cada fila.</li>
+<li class="fragment">Cuidado de no revelar información del futuro.</li>
+</ul>
+</section>
+<section id="lags-1" class="slide level3">
+<h3>Lags</h3>
+<div class="columns">
+<div class="column">
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Id</th>
+<th> Fecha</th>
+<th> Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td> 2021-08-02</td>
+<td> 5</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td> 2021-08-03</td>
+<td> 3</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td> 2021-08-04</td>
+<td> 7</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td> 2021-08-05</td>
+<td> 0</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td> 2021-08-06</td>
+<td> 1</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td> 2021-08-07</td>
+<td> 2</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td> 2021-08-08</td>
+<td> 1</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td> 2021-08-09</td>
+<td> 10</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column">
+<ul>
+<li class="fragment">La notación <span class="math inline">\(L(x, s)\)</span>, denota el lag <span class="math inline">\(s\)</span> de la fila con indice <span class="math inline">\(x\)</span>.</li>
+<li class="fragment"><span class="math inline">\(L(3, 2) = (1, 2021-08-02, 5)\)</span>.</li>
+<li class="fragment"><span class="math inline">\(L(7, 1) = (6, 2021-08-07, 7)\)</span></li>
+<li class="fragment"><span class="math inline">\(L(4, -2) = (6, 2021-08-07, 7)\)</span> (revela información del futuro!)</li>
+<li class="fragment">Aplicar lags produce missing values que deben ser completados.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="agregando-lags-al-dataset" class="slide level3">
+<h3>Agregando lags al dataset</h3>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Id</th>
+<th> Fecha</th>
+<th> Valor</th>
+<th> Lag 1</th>
+<th> Lag 3</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td> 2021-08-02</td>
+<td> 6</td>
+<td> x</td>
+<td> x</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td> 2021-08-03</td>
+<td> 3</td>
+<td> 6</td>
+<td> x </td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td> 2021-08-04</td>
+<td> 7</td>
+<td> 3</td>
+<td> x</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td> 2021-08-05</td>
+<td> 0</td>
+<td> 7</td>
+<td> 6 </td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td> 2021-08-06</td>
+<td> 1</td>
+<td> 0</td>
+<td> 3 </td>
+<td></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td> 2021-08-07</td>
+<td> 2</td>
+<td> 1</td>
+<td> 7 </td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td> 2021-08-08</td>
+<td> 1</td>
+<td> 2</td>
+<td> 0 </td>
+<td></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td> 2021-08-09</td>
+<td> 10 </td>
+<td> 1</td>
+<td> 1 </td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="extras" class="slide level3">
+<h3>Extras</h3>
+<ul>
+<li class="fragment">Podemos agregar lags con la frecuencia que se desee.</li>
+<li class="fragment">El lag no tiene que ser simplemente el valor historico.</li>
+<li class="fragment">Se pueden crear “lags” basados en combinaciones de los lags anteriores.</li>
+</ul>
+</section></section>
+<section>
+<section id="codificaciones-que-preservan-periodicidad" class="title-slide slide level2">
+<h2>Codificaciones que preservan periodicidad</h2>
+<table>
+<caption><p></p></caption>
+<thead>
+<tr class="header">
+<th>Día</th>
+<th> Mes</th>
+<th> Año</th>
+<th> Hora</th>
+<th> Minuto</th>
+<th> Ocupación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>25</td>
+<td> 08</td>
+<td> 2021</td>
+<td> 16</td>
+<td> 05</td>
+<td> 0.6</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td> 08</td>
+<td> 2021</td>
+<td> 16</td>
+<td> 10</td>
+<td> 0.5</td>
+</tr>
+<tr class="odd">
+<td>30</td>
+<td> 10</td>
+<td> 2020</td>
+<td> 16</td>
+<td> 05</td>
+<td> 0.56</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment">El modelo no sabe que luego de un domingo hay un lunes.</li>
+<li class="fragment">El modelo no sabe que luego del 31 viene el primero.</li>
+</ul>
+</section>
+<section id="codificación-usando-funciones-trigonométricas." class="slide level3">
+<h3>Codificación usando funciones trigonométricas.</h3>
+<div class="columns">
+<div class="column">
+<p><img data-src="img/trig_circle.png" style="width:50.0%" /></p>
+</div><div class="column">
+<ul>
+<li class="fragment">Dividimos el circulo trigonométrico en <span class="math inline">\(N\)</span> partes iguales.</li>
+<li class="fragment">El 0 se corresponde con <span class="math inline">\((1, 0)\)</span></li>
+<li class="fragment">Para un intervalo <span class="math inline">\([0, n]\)</span> tenemos que: <span class="math inline">\(k \rightarrow (\cos(\frac{k2\pi}{n}), \sin(\frac{k2\pi}{n}))\)</span></li>
+<li class="fragment">Por cada attributo periódico creamos dos nuevos feautres: <span class="math inline">\(f_{cos}, f_{sin}\)</span>.</li>
+</ul>
+</div>
+</div>
+</section></section>
+<section id="preguntas" class="title-slide slide level2">
+<h2>Preguntas?</h2>
+
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4//dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:true});</script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^4//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/math/math.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+	pdfSeparateFragments: false,
+
+        <!-- // Help the user learn the controls by providing hints, for example by -->
+        <!-- // bouncing the down arrow when they first encounter a vertical slide -->
+        <!-- controlsTutorial: true, -->
+
+        <!-- // Determines where controls appear, "edges" or "bottom-right" -->
+        <!-- controlsLayout: 'bottom-right', -->
+
+        <!-- // Visibility rule for backwards navigation arrows; "faded", "hidden" -->
+        <!-- // or "visible" -->
+        <!-- controlsBackArrows: 'faded', -->
+
+        <!-- // Display a presentation progress bar -->
+        <!-- progress: true, -->
+
+        <!-- // Display the page number of the current slide -->
+        slideNumber: true,
+
+        <!-- // 'all', 'print', or 'speaker' -->
+        <!-- showSlideNumber: 'all', -->
+
+        <!-- // Add the current slide number to the URL hash so that reloading the -->
+        <!-- // page/copying the URL will return you to the same slide -->
+        <!-- hash: false, -->
+
+        <!-- // Start with 1 for the hash rather than 0 -->
+        <!-- hashOneBasedIndex: false, -->
+
+        <!-- // Flags if we should monitor the hash and change slides accordingly -->
+        <!-- respondToHashChanges: true, -->
+
+        <!-- // Push each slide change to the browser history -->
+        <!-- history: false, -->
+
+        <!-- // Enable keyboard shortcuts for navigation -->
+        <!-- keyboard: true, -->
+
+        <!-- // Enable the slide overview mode -->
+        <!-- overview: true, -->
+
+        <!-- // Disables the default reveal.js slide layout (scaling and centering) -->
+        <!-- // so that you can use custom CSS layout -->
+        <!-- disableLayout: false, -->
+
+        <!-- // Vertical centering of slides -->
+        <!-- center: true, -->
+
+        <!-- // Enables touch navigation on devices with touch input -->
+        <!-- touch: true, -->
+
+        <!-- // Loop the presentation -->
+        <!-- loop: false, -->
+
+        <!-- // Change the presentation direction to be RTL -->
+        <!-- rtl: false, -->
+
+        <!-- // see https://revealjs.com/vertical-slides/#navigation-mode -->
+        <!-- navigationMode: 'default', -->
+
+        <!-- // Randomizes the order of slides each time the presentation loads -->
+        <!-- shuffle: false, -->
+
+        <!-- // Turns fragments on and off globally -->
+        <!-- fragments: true, -->
+
+        <!-- // Flags whether to include the current fragment in the URL, -->
+        <!-- // so that reloading brings you to the same fragment position -->
+        <!-- fragmentInURL: true, -->
+
+        <!-- // Flags if the presentation is running in an embedded mode, -->
+        <!-- // i.e. contained within a limited portion of the screen -->
+        <!-- embedded: false, -->
+
+        <!-- // Flags if we should show a help overlay when the questionmark -->
+        <!-- // key is pressed -->
+        <!-- help: true, -->
+
+        <!-- // Flags if it should be possible to pause the presentation (blackout) -->
+        <!-- pause: true, -->
+
+        <!-- // Flags if speaker notes should be visible to all viewers -->
+        <!-- showNotes: false, -->
+
+        <!-- // Global override for autoplaying embedded media (null/true/false) -->
+        <!-- autoPlayMedia: null, -->
+
+        <!-- // Global override for preloading lazy-loaded iframes (null/true/false) -->
+        <!-- preloadIframes: null, -->
+
+        <!-- // Number of milliseconds between automatically proceeding to the -->
+        <!-- // next slide, disabled when set to 0, this value can be overwritten -->
+        <!-- // by using a data-autoslide attribute on your slides -->
+        <!-- autoSlide: 0, -->
+
+        <!-- // Stop auto-sliding after user input -->
+        <!-- autoSlideStoppable: true, -->
+
+        <!-- // Use this method for navigation when auto-sliding -->
+        <!-- autoSlideMethod: null, -->
+
+        <!-- // Specify the average time in seconds that you think you will spend -->
+        <!-- // presenting each slide. This is used to show a pacing timer in the -->
+        <!-- // speaker view -->
+        <!-- defaultTiming: null, -->
+
+        <!-- // Enable slide navigation via mouse wheel -->
+        <!-- mouseWheel: false, -->
+
+        <!-- // The display mode that will be used to show slides -->
+        <!-- display: 'block', -->
+
+        <!-- // Hide cursor if inactive -->
+        <!-- hideInactiveCursor: true, -->
+
+        <!-- // Time before the cursor is hidden (in ms) -->
+        <!-- hideCursorTime: 5000, -->
+
+        <!-- // Opens links in an iframe preview overlay -->
+        <!-- previewLinks: false, -->
+
+        <!-- // Transition style (none/fade/slide/convex/concave/zoom) -->
+        <!-- transition: 'slide', -->
+
+        <!-- // Transition speed (default/fast/slow) -->
+        <!-- transitionSpeed: 'default', -->
+
+        <!-- // Transition style for full page slide backgrounds -->
+        <!-- // (none/fade/slide/convex/concave/zoom) -->
+        <!-- backgroundTransition: 'fade', -->
+
+        <!-- // Number of slides away from the current that are visible -->
+        <!-- viewDistance: 3, -->
+
+        <!-- // Number of slides away from the current that are visible on mobile -->
+        <!-- // devices. It is advisable to set this to a lower number than -->
+        <!-- // viewDistance in order to save resources. -->
+        <!-- mobileViewDistance: 2, -->
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: '100%',
+
+        height: '100%',
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+	    tex: {
+		Macros: {
+		RR:  "{\\bf R}",
+		},
+	    },
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom,
+        ]
+      });
+    </script>
+    </body>
+</html>

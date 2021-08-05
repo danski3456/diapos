@@ -33,21 +33,21 @@
 </section>
 
 <section>
-<section id="supervised-learning" class="title-slide slide level2">
-<h2>Supervised Learning</h2>
+<section id="aprendizaje-supervisado" class="title-slide slide level2">
+<h2>Aprendizaje Supervisado</h2>
 <ul>
-<li class="fragment">Let <span class="math inline">\(x^i \in \mathbb{R}^N\)</span> and <span class="math inline">\(y^i \in \mathbb{R}\)</span></li>
-<li class="fragment"><span class="math inline">\(\mathcal{D} = (x^i, y^i)_{i=0, \dots, M-1}\)</span> defines our dataset</li>
-<li class="fragment"><span class="math inline">\(f\colon \mathbb{R}^N \times \mathbb{R}^P \to \mathbb{R}\)</span> predicts <span class="math inline">\(y\)</span> from <span class="math inline">\(x\)</span> with params <span class="math inline">\(p\)</span></li>
+<li class="fragment">Sea <span class="math inline">\(x^i \in \mathbb{R}^N\)</span> y <span class="math inline">\(y^i \in \mathbb{R}\)</span></li>
+<li class="fragment"><span class="math inline">\(\mathcal{D} = (x^i, y^i)_{i=0, \dots, M-1}\)</span> define nuestro dataset</li>
+<li class="fragment"><span class="math inline">\(f\colon \mathbb{R}^N \times \mathbb{R}^P \to \mathbb{R}\)</span> predice <span class="math inline">\(y\)</span> de <span class="math inline">\(x\)</span> con parámetros <span class="math inline">\(p\)</span></li>
 <li class="fragment"><span class="math inline">\(\hat{y^i} = f(x^i, p)\)</span></li>
-<li class="fragment">Loss function <span class="math inline">\(\mathcal{L}(y^i, \hat{y^i})\)</span></li>
+<li class="fragment">Función de perdida: <span class="math inline">\(\mathcal{L}(y^i, \hat{y^i})\)</span></li>
 <li class="fragment"><span class="math display">\[
 \min_{p} \mathcal{L}(f(x^i, p), y^i)
 \]</span></li>
 </ul>
 </section>
-<section id="example" class="slide level3">
-<h3>Example</h3>
+<section id="ejemplo" class="slide level3">
+<h3>Ejemplo</h3>
 <table>
 <caption><p></p></caption>
 <thead>
@@ -82,211 +82,175 @@
 </ul>
 </section></section>
 <section>
-<section id="inputs-to-an-ml-algorithm" class="title-slide slide level2">
-<h2>Inputs to an ML algorithm</h2>
+<section id="entradas-a-un-algoritmo-ml" class="title-slide slide level2">
+<h2>Entradas a un algoritmo ML</h2>
 <ul>
-<li class="fragment">In most cases have to be real numbers</li>
-<li class="fragment">Depending on the algorithm, we need to take care of different hyptotheis</li>
+<li class="fragment">En la mayoría de los casos tienen que ser números reales</li>
+<li class="fragment">Dependiendo del algoritmo, debemos cuidar diferentes hipótesis</li>
 </ul>
 </section>
-<section id="normalization" class="slide level3">
-<h3>Normalization</h3>
+<section id="normalización" class="slide level3">
+<h3>Normalización</h3>
 <ul>
-<li class="fragment">If algorithm is based on a notion of distance: LR, SVM, NN</li>
-<li class="fragment">We need to normalize all inputs</li>
-<li class="fragment">Failing to do so, is amist of giving more importance to a feature.</li>
-<li class="fragment">Noralization types: Standard Scaling, MaxMinScaling, etc.</li>
-<li class="fragment">Regression trees don’t care about distance: only order.</li>
+<li class="fragment">Si el algoritmo se basa en una noción de distancia: LR, SVM, NN</li>
+<li class="fragment">Necesitamos normalizar todas las entradas.</li>
+<li class="fragment">No hacerlo, es una forma de darle más importancia a una característica.</li>
+<li class="fragment">Tipos de normalización: escala estándar, escala máxima mínima, etc.</li>
+<li class="fragment">Los árboles de regresión no se preocupan por la distancia: solo el orden.</li>
 </ul>
 </section>
-<section id="ordinal-order" class="slide level3">
-<h3>Ordinal order</h3>
+<section id="orden-ordinal" class="slide level3">
+<h3>Orden ordinal</h3>
 <ul>
-<li class="fragment">Some features have an implicit order: “bad, average, good”</li>
-<li class="fragment">They will have to be transformed as numbers.</li>
-<li class="fragment">Preserving their order is important:
+<li class="fragment">Algunas funciones tienen un orden implícito: “malo, promedio, bueno”</li>
+<li class="fragment">Deberán transformarse en números.</li>
+<li class="fragment">Mantener su orden es importante:
 <ul>
-<li class="fragment">bad=2, average=0, good=1</li>
-<li class="fragment">bad = 0, average = 1, good = 2</li>
+<li class="fragment">malo = 2, promedio = 0, bueno = 1</li>
+<li class="fragment">malo = 0, promedio = 1, bueno = 2</li>
 </ul></li>
 </ul>
 </section>
-<section id="categories-without-order" class="slide level3">
-<h3>Categories without order</h3>
+<section id="categorías-sin-orden" class="slide level3">
+<h3>Categorías sin orden</h3>
 <ul>
-<li class="fragment">Consider types of cloth: shirt, pants, sweater</li>
-<li class="fragment">Enconding as numbers asumes implicit order:
+<li class="fragment">Considere los tipos de tela: camisa, pantalón, suéter.</li>
+<li class="fragment">Encoder usando números asume un orden implícito:</li>
+<li class="fragment">camisa = 0, pantalón = 1, suéter = 2</li>
+<li class="fragment">Opción 1: One-Hot Encoding se transforma en tres nuevas funciones.
 <ul>
-<li class="fragment">shirt = 0, pants = 1, sweater = 2</li>
+<li class="fragment"><span class="math inline">\(x_{camisa} = 1, x_{pantalón} = 1, x_{suéter} = 1\)</span></li>
 </ul></li>
-<li class="fragment">Option 1: One-Hot Encoding transform into three new features.
+<li class="fragment">Opción 2: codificación de destino (Target Encoding)
 <ul>
-<li class="fragment"><span class="math inline">\(x_{shirt} = 1, x_{pants} = 1, x_{swaater} = 1\)</span></li>
-</ul></li>
-<li class="fragment">Option 2: Target encoding
-<ul>
-<li class="fragment">shirt = 42.1, pants = -3, sweater = 26</li>
+<li class="fragment">camisa = 42.1, pantalón = -3, suéter = 26</li>
 </ul></li>
 </ul>
 </section>
-<section id="periodic-data" class="slide level3">
-<h3>Periodic Data</h3>
+<section id="datos-periódicos" class="slide level3">
+<h3>Datos periódicos</h3>
 <ul>
-<li class="fragment">Similar to Ordinal Data</li>
-<li class="fragment">Monday = 0, Tuesday = 1, …, Sunday = 6</li>
-<li class="fragment">Difference Monday - Tueday != Monday - Sunday</li>
-<li class="fragment">Circle encoding fixes this problem (more in next class)</li>
+<li class="fragment">Similar a los datos ordinales</li>
+<li class="fragment">Lunes = 0, martes = 1, …, domingo = 6</li>
+<li class="fragment">Diferencia Lunes - Martes! = Lunes - Domingo</li>
 </ul>
 </section></section>
 <section>
-<section id="training-and-scoring" class="title-slide slide level2">
-<h2>Training and Scoring</h2>
+<section id="entrenamiento-y-puntuación" class="title-slide slide level2">
+<h2>Entrenamiento y puntuación</h2>
 
 </section>
-<section id="basic-approach" class="slide level3">
-<h3>Basic Approach</h3>
+<section id="enfoque-básico" class="slide level3">
+<h3>Enfoque básico</h3>
 <ul>
-<li class="fragment">Split dataset in two: one for training and one for testing</li>
-<li class="fragment">Usually 80% / 20%</li>
-<li class="fragment">Prone to overfitting</li>
+<li class="fragment">Dividir el conjunto de datos en dos: uno para entrenamiento y otro para pruebas</li>
+<li class="fragment">Generalmente 80% / 20%</li>
+<li class="fragment">Propenso a sobre ajustar</li>
 </ul>
 </section>
-<section id="slightly-more-advanced" class="slide level3">
-<h3>Slightly more advanced</h3>
+<section id="un-poco-más-avanzado" class="slide level3">
+<h3>Un poco más avanzado</h3>
 <ul>
-<li class="fragment">Split dataset into three: training, validation, test.</li>
-<li class="fragment">Usually 80% / 10% 10%</li>
-<li class="fragment">Use training for training and validation for assesing performance.</li>
-<li class="fragment">Select hypterparamters based on validation dataset.</li>
-<li class="fragment">Fit train + validation on best parameters and evaluate on test at the end.</li>
+<li class="fragment">Dividir el conjunto de datos en tres: entrenamiento, validación, prueba.</li>
+<li class="fragment">Generalmente 80% / 10% 10%</li>
+<li class="fragment">Utiliar el conjunto de entrenamiento para entrenar y el de validación para evaluar el rendimiento.</li>
+<li class="fragment">Seleccionar hiper-parámetros según el conjunto de datos de validación.</li>
+<li class="fragment">Entrenar con los mejores hiper-parámetros en entrenamiento + validación y calcular la métrica final con el conjunto de prueba.</li>
 </ul>
 </section>
-<section id="best-practice" class="slide level3">
-<h3>Best practice</h3>
+<section id="mejores-prácticas" class="slide level3">
+<h3>Mejores prácticas</h3>
 <ul>
-<li class="fragment">Split into train and test.</li>
-<li class="fragment">Usually 80% / 20%</li>
-<li class="fragment">Split train dataset in <span class="math inline">\(X=3, 5, 10\)</span> and perform cross-validaton.
-<ul>
-<li class="fragment">Train on <span class="math inline">\(X-1\)</span> splits and validate on the remaining one.</li>
-<li class="fragment">Average score across all splits.</li>
-<li class="fragment">Chose hypterparameters with highest average score.</li>
-</ul></li>
-<li class="fragment">Fit train dataset with best hypterparameters and evaluate on test set.</li>
+<li class="fragment">Dividir en tren y prueba.</li>
+<li class="fragment">Generalmente 80% / 20%</li>
+<li class="fragment">Dividir el conjunto de datos de entrenamiento en $ X = 3, 5, 10 $ y realizar una validación cruzada.</li>
+<li class="fragment">Entrenar en groups de <span class="math inline">\(X-1\)</span> particiones y validar en la restante.</li>
+<li class="fragment">Puntaje promedio en todas las particiones.</li>
+<li class="fragment">Elija los parámetros con la puntuación media más alta.</li>
+<li class="fragment">Ajustar el conjunto de datos del entrenamiento con los mejores hiper-parámetros y evaluar en el conjunto de prueba.</li>
 </ul>
 </section>
-<section id="observations" class="slide level3">
-<h3>Observations</h3>
+<section id="observaciones" class="slide level3">
+<h3>Observaciones</h3>
 <ul>
-<li class="fragment">Ideally, each enconder/transformation/etc should be re-trained on each split.</li>
-<li class="fragment">They are re-trained once at the end for evaluating the test set.</li>
+<li class="fragment">Idealmente, cada codificador / transformación / etc debería ser re-entrenado en cada split.</li>
+<li class="fragment">Se vuelven a entrenar una vez al final para evaluar el conjunto de prueba.</li>
 </ul>
 </section></section>
 <section>
-<section id="managing-code" class="title-slide slide level2">
-<h2>Managing code</h2>
+<section id="gestión-de-código" class="title-slide slide level2">
+<h2>Gestión de Código</h2>
 
 </section>
-<section id="desired-qualities" class="slide level3">
-<h3>Desired qualities</h3>
-<p>When writing code, as with any other collaborative document we would like to:</p>
+<section id="cualidades-deseadas" class="slide level3">
+<h3>Cualidades deseadas</h3>
+<p>Al escribir código, como con cualquier otro documento colaborativo, nos gustaría:</p>
 <ul>
-<li class="fragment">Have a copy in the cloud, so that progress is not lost (backup).</li>
-<li class="fragment">Have a tool that fixes problems when people modify the same file (conflicts).</li>
-<li class="fragment">Have a way to go back to a previous version (history).</li>
+<li class="fragment">Tener una copia en la nube, para que no se pierda el progreso (copia de seguridad).</li>
+<li class="fragment">Tener una herramienta que solucione problemas cuando las personas modifiquen el mismo archivo (conflictos).</li>
+<li class="fragment">Tener una forma de volver a una versión anterior (historial).</li>
 </ul>
 </section>
 <section id="git" class="slide level3">
 <h3>Git</h3>
 <ul>
-<li class="fragment">Small program developed by Linus Torvalds (creator of linux) in 2005.</li>
-<li class="fragment">It is independent of the editor (TextPad, VSCode, Word, etc).</li>
-<li class="fragment">Saves all requested changes to a remote server.</li>
-<li class="fragment">Changes can be:
+<li class="fragment">Pequeño programa desarrollado por Linus Torvalds (creador de Linux) en 2005.</li>
+<li class="fragment">Es independiente del editor (TextPad, VSCode, Word, etc.).</li>
+<li class="fragment">Guarda todos los cambios solicitados en un servidor remoto.</li>
+<li class="fragment">El worflow tradicional consiste en:
 <ul>
-<li class="fragment">Added (locally)</li>
-<li class="fragment">Commited (creating a checkpoint)</li>
-<li class="fragment">Pushed (uploaded to the server)</li>
-<li class="fragment">Pulled (downloaded from the server)</li>
+<li class="fragment">Add (localmente)</li>
+<li class="fragment">Commit (creando un punto de control)</li>
+<li class="fragment">Push (subido al servidor)</li>
+<li class="fragment">Pull (descargado del servidor)</li>
 </ul></li>
 </ul>
 </section>
 <section id="github" class="slide level3">
 <h3>Github</h3>
-<p><img data-src="img/github.jpg" /></p>
+<p><img data-src="img/github.jpg" width="700" /></p>
 </section>
 <section id="github-1" class="slide level3">
 <h3>Github</h3>
 <ul>
-<li class="fragment">Github is a service that hosts git servers.</li>
-<li class="fragment">It provides a nice interface to look at code</li>
-<li class="fragment">It is used by almost every code developer</li>
-<li class="fragment">Alternatives exists: gitlab, bitbucket, etc.</li>
+<li class="fragment">Github es un servicio que aloja servidores git.</li>
+<li class="fragment">Proporciona una interfaz agradable para mirar el código.</li>
+<li class="fragment">Es utilizado por casi todos los desarrolladores de código.</li>
+<li class="fragment">Existen alternativas: gitlab, bitbucket, etc.</li>
 </ul>
+<!-- ## API -->
+<!-- * Una vez que se entrena un modelo de aprendizaje automático, es necesario implementarlo para poder utilizarlo. -->
+<!-- * Para implementar modelos de AA, a menudo usamos una interfaz de programación de aplicaciones (API). -->
+<!-- * Una API es un programa que expone una URL personalizada: puede aceptar parámetros y devolver una respuesta. -->
+<!-- ### Example API -->
+<!-- * URL: "https://example.com/sum/" -->
+<!-- * Cuando se llama con parámetros específicos devuelve la suma de "a" y "b" -->
+<!-- * Podemos enviar parámetros en la URL "sum/?a=10&b=5" -->
+<!-- * Obtenemos la respuesta: 15. -->
+<!-- ### Tipos de API -->
+<!-- * Las API utilizan HTTP / HTTPS. -->
+<!-- * Normalmente, enviamos los tipos de mensajes "GET" o "POST". -->
+<!-- * Cada mensaje contiene un ENCABEZADO: -->
+<!--     * URL está aquí -->
+<!--     * Información sobre el remitente (tipo de navegador, etc.) -->
+<!--     * Información de autenticación si es necesario. -->
+<!-- * Los mensajes pueden contener un CUERPO: -->
+<!--     * Para mensajes grandes, el contenido puede estar aquí. -->
+<!-- ### Ejemplo HTTP GET -->
+<!-- ![](img/http_get.png){ width="700px" } -->
+<!-- ### Ejemplo HTTP POST -->
+<!-- ![](img/http_post_1.png){ width="700px" } -->
+<!-- ### -->
+<!-- ![](img/http_post_2.png){ width="700px" } -->
 </section></section>
 <section>
-<section id="api" class="title-slide slide level2">
-<h2>API</h2>
+<section id="entorno-de-ejecución" class="title-slide slide level2">
+<h2>Entorno de ejecución</h2>
 <ul>
-<li class="fragment">Once a Machine Learning model is trained, it needs to be deployed to be used.</li>
-<li class="fragment">To deploy ML models, we often use an Application Programming Interface (API).</li>
-<li class="fragment">An API is a program that exposes a custom URL: it might accept parameters and returns a response.</li>
-</ul>
-</section>
-<section id="api-workflow" class="slide level3">
-<h3>API Workflow</h3>
-<pre class="mermaid"><code>graph TD;
-    A--&gt;B;
-    A--&gt;C;
-    B--&gt;D;
-    C--&gt;D;</code></pre>
-</section>
-<section id="example-api" class="slide level3">
-<h3>Example API</h3>
-<ul>
-<li class="fragment">URL: “https://example.com/sum/”</li>
-<li class="fragment">When called with specific parameters, it returns the sum of “a” and “b”</li>
-<li class="fragment">We can send paramters in the url “sum/?a=10&amp;b=5”</li>
-<li class="fragment">We get the response: 15.</li>
-</ul>
-</section>
-<section id="types-of-api" class="slide level3">
-<h3>Types of API</h3>
-<ul>
-<li class="fragment">APIs use HTTP / HTTPS.</li>
-<li class="fragment">Normally, we send “GET” or “POST” message types.</li>
-<li class="fragment">Each message contains a HEADER:
-<ul>
-<li class="fragment">URL is here</li>
-<li class="fragment">Information about the sender (type of browser, etc)</li>
-<li class="fragment">Authentication information if required.</li>
-</ul></li>
-<li class="fragment">Messages might contain a BODY:
-<ul>
-<li class="fragment">For large messages, the content can be here.</li>
-</ul></li>
-</ul>
-</section>
-<section id="example-http-get" class="slide level3">
-<h3>Example HTTP GET</h3>
-<p><img data-src="img/http_get.png" /></p>
-</section>
-<section id="example-http-post" class="slide level3">
-<h3>Example HTTP POST</h3>
-<p><img data-src="img/http_post_1.png" /></p>
-</section>
-<section id="section" class="slide level3">
-<h3></h3>
-<p><img data-src="img/http_post_2.png" /></p>
-</section></section>
-<section>
-<section id="running-environment" class="title-slide slide level2">
-<h2>Running Environment</h2>
-<ul>
-<li class="fragment">A virtual machine is a “copy of a computer” running inside a computer”.</li>
-<li class="fragment">Example: running a linux computer inside a window in a Windows computer.</li>
-<li class="fragment">It is very useful to guarantee that a program runs inside the same computer everywhere.</li>
-<li class="fragment">Quite heavyweight to share and not very comfortable to use.</li>
+<li class="fragment">Una máquina virtual es una “copia de una computadora” que se ejecuta dentro de una computadora “.</li>
+<li class="fragment">Ejemplo: ejecutar una computadora Linux dentro de una ventana en una computadora Windows.</li>
+<li class="fragment">Es muy útil garantizar que un programa se ejecute dentro de la misma computadora en todas partes.</li>
+<li class="fragment">Bastante pesado para compartir y no muy cómodo de usar.</li>
 </ul>
 </section>
 <section id="docker" class="slide level3">
@@ -294,9 +258,8 @@
 <div class="columns">
 <div class="column">
 <ul>
-<li class="fragment">Same idea of virtual machine, but only core funcionality.</li>
-<li class="fragment">Described using a single file, which can be shared via Github.</li>
-<li class="fragment">Widely used, can be easily depoloyed in the cloud</li>
+<li class="fragment">Misma idea de máquina virtual, pero solo funcionalidad básica.</li>
+<li class="fragment">Descrito usando un solo archivo, que se puede compartir a través de Github.</li>
 </ul>
 </div><div class="column">
 <pre class="dockerfille"><code>FROM ubuntu:lastest
@@ -327,6 +290,8 @@ CMD [&quot;jupyter-notebook&quot;]</code></pre>
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
+	pdfSeparateFragments: false,
 
         <!-- // Help the user learn the controls by providing hints, for example by -->
         <!-- // bouncing the down arrow when they first encounter a vertical slide -->
@@ -499,7 +464,7 @@ CMD [&quot;jupyter-notebook&quot;]</code></pre>
           RevealMath,
           RevealNotes,
           RevealSearch,
-          RevealZoom
+          RevealZoom,
         ]
       });
     </script>

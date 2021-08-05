@@ -96,6 +96,8 @@ $endif$
         // Display controls in the bottom right corner
         controls: $controls$,
 
+	pdfSeparateFragments: false,
+
         <!-- // Help the user learn the controls by providing hints, for example by -->
         <!-- // bouncing the down arrow when they first encounter a vertical slide -->
         <!-- controlsTutorial: $controlsTutorial$, -->
@@ -315,7 +317,7 @@ $if(mathjax)$
 $endif$
           RevealNotes,
           RevealSearch,
-          RevealZoom
+          RevealZoom,
         ]
       });
     </script>

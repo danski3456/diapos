@@ -4,7 +4,7 @@ date: 2 de Agosto 2021
 ---
 
 
-## Introduction
+## Introducción
 
 
 * Definir el precio de objectos es fundamental en muchas industrias
@@ -120,7 +120,7 @@ Demanda, Alta
 ::: columns
 :::: column
 
-$$ MSE = \min_u \sum_{i=1}^{N \times K} (y_i - u)^2 $$
+$$ MSE = \min_u \sum_{i=1}^{N} (y_i - u)^2 $$
 
 ::::
 :::: column
@@ -154,8 +154,8 @@ $$ MAE = \min_u \sum_{i=1}^{N} | y_i - u | $$
 
 ::: columns
 :::: column
-$$ PINBALL_{\tau} = \min_u \sum_{i=1}^{N \times K} \varrho_{\tau}(y_i - u) $$
-$$ \varrho_{\tau}(z) = z \times (\tau - \mathbb{1}_{\{ y < 0 \}}) $$
+$$ PINBALL_{\tau} = \min_u \sum_{i=1}^{N} \varrho_{\tau}(y_i - u) $$
+$$ \varrho_{\tau}(z) = z \times (\tau - \mathbb{1}_{\{ z < 0 \}}) $$
 ::::
 :::: column
 
@@ -266,8 +266,3 @@ Es una biblioteca que calcula shapley values para varios modelos:
 
 ![](img/shapley_value.png){ width="70%" }
 
-## Test
-
-```plaintext
-Esto es un parrafo que queda subrayado
-```
